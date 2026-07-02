@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="ermili.dev helps businesses get premium, easy-to-use websites — from first conversation to launch." />
+  <title>ermili.dev — Premium Websites for Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="me-logo-origin.png" type="image/png" />
+</head>
+
+<body>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <header class="header" id="header">
+    <nav class="nav container-wide">
+      <a href="index.html" class="logo" aria-label="ermili.dev home">
+        <span class="logo-icon-wrap">
+          <img class="logo-photo" src="logo.png" alt="" width="36" height="36" />
+        </span>
+        <span class="logo-lockup">ermili<span class="accent-dot">.</span>dev</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <div class="nav-links-group">
+          <a href="projects.html">Projects</a>
+          <a href="#contact">Contact</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <a href="#book" class="nav-cta">Book a call</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero / About -->
+    <section class="hero" id="about">
+      <div class="container-wide hero-wrap">
+        <div class="hero-center">
+          <div class="hero-top reveal">
+            <figure class="hero-avatar">
+              <img src="me-logo-origin.png" alt="ermili.dev" width="56" height="56" loading="eager" />
+            </figure>
+            <span class="hero-status">
+              <span class="status-pulse" aria-hidden="true"></span>
+              Available
+            </span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="hero-line reveal">Your Business Deserves</span>
+            <span class="hero-line hero-line--soft reveal">a Better Website<span class="hero-dot">.</span></span>
+          </h1>
+
+          <p class="hero-desc reveal">
+            I redesign and build modern, high-performance websites that help ambitious businesses look credible, attract
+            more customers, and grow with confidence.
+          </p>
+
+          <div class="hero-actions reveal">
+            <a href="#book" class="btn btn-accent">Book a call</a>
+            <a href="projects.html" class="btn btn-outline">View work</a>
+          </div>
+        </div>
+
+        <div class="hero-rule reveal" aria-hidden="true">
+          <span class="hero-rule-line"></span>
+          <span class="hero-rule-label label-mono">Scroll</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meet the person -->
+    <section class="section meet" id="meet">
+      <div class="container-wide">
+        <h2 class="meet-title reveal">
+          <span class="meet-title-line">Meet the <em>person</em></span>
+          <span class="meet-title-line meet-title-line--offset">behind the <em>design</em></span>
+        </h2>
+
+        <article class="meet-card reveal">
+          <figure class="meet-photo">
+            <img src="me-logo-origin.png" alt="ermili.dev" width="280" height="340" loading="lazy" />
+          </figure>
+          <div class="meet-body">
+            <p class="meet-greeting"><strong>Hey,</strong></p>
+            <p class="meet-lead">my name is ermili, website specialist and developer. I create high-end websites for
+              businesses that want to look credible and grow online.</p>
+            <p class="meet-text">With experience across design and development, I combine technical expertise with a
+              strong design sensibility to build digital experiences that truly stand out.</p>
+            <p class="meet-text">Let's make your website something extraordinary!</p>
+            <a href="#contact" class="link-underline">Learn more</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Book a call — WeDevelopz-style calendar -->
+    <section class="section booking" id="book">
+      <div class="container-wide">
+        <header class="booking-head reveal">
+          <span class="eyebrow">Let's talk!</span>
+          <h2 class="section-title">Book a free discovery call</h2>
+          <p class="section-sub">Pick a date and time that works for you. I'll confirm your slot within 24 hours.</p>
+        </header>
+
+        <div class="booking-widget reveal" id="bookingWidget">
+          <aside class="booking-meta">
+            <div class="booking-host">
+              <img class="booking-avatar" src="me-logo-origin.png" alt="ermili.dev" width="40" height="40" />
+              <p class="booking-host-name">ermili</p>
+            </div>
+            <h3 class="booking-event-title">30 Min Meeting</h3>
+            <div class="booking-event-desc">
+              <p>An intro call to assess your goals, discuss your website needs, and see if we're a good fit to work
+                together.</p>
+              <ul>
+                <li>Review your current website or project idea</li>
+                <li>Discuss timeline, scope, and budget</li>
+                <li>Get clear next steps — no pressure</li>
+              </ul>
+            </div>
+            <ul class="booking-event-details">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="8" r="6.5" stroke="currentColor" />
+                  <path d="M8 4.5V8l2.5 1.5" stroke="currentColor" stroke-linecap="round" />
+                </svg>
+                30m
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <rect x="2" y="4" width="12" height="8" rx="1.5" stroke="currentColor" />
+                  <path d="M6 7h4M6 9.5h2.5" stroke="currentColor" stroke-linecap="round" />
+                </svg>
+                Google Meet
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="8" r="6.5" stroke="currentColor" />
+                  <path d="M2.5 8h11M8 2.5c1.8 2 2.8 4.2 2.8 5.5S9.8 11 8 13M8 2.5C6.2 4.5 5.2 6.7 5.2 8s1 3.5 2.8 5.5"
+                    stroke="currentColor" />
+                </svg>
+                <span id="bookingTimezone">GMT+1</span>
+                <svg class="booking-tz-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  aria-hidden="true">
+                  <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </li>
+            </ul>
+          </aside>
+
+          <div class="booking-calendar-col" id="calendarPanel">
+            <div class="calendar-header">
+              <h4 class="calendar-month" id="calMonthLabel"></h4>
+              <div class="calendar-nav">
+                <button type="button" class="cal-nav" id="calPrev" aria-label="Previous month">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10 4L6 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </button>
+                <button type="button" class="cal-nav" id="calNext" aria-label="Next month">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="calendar-weekdays" aria-hidden="true">
+              <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+            </div>
+            <div class="calendar-grid" id="calGrid" role="grid" aria-label="Select a date"></div>
+          </div>
+
+          <div class="booking-times-col">
+            <div class="times-panel" id="timesPanel">
+              <div class="times-header">
+                <p class="times-label" id="timesDateLabel">Select a date</p>
+                <div class="time-format-toggle" role="group" aria-label="Time format">
+                  <button type="button" class="time-format-btn time-format-btn--active" data-format="12"
+                    id="format12h">12h</button>
+                  <button type="button" class="time-format-btn" data-format="24" id="format24h">24h</button>
+                </div>
+              </div>
+              <div class="times-slots" id="timesSlots" role="listbox" aria-label="Available times"></div>
+              <p class="times-empty" id="timesEmpty">Pick a date to see available times.</p>
+            </div>
+
+            <div class="confirm-panel" id="confirmPanel" hidden>
+              <button type="button" class="times-back" id="confirmBack" aria-label="Back to times">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+              </button>
+              <p class="confirm-summary" id="confirmSummary"></p>
+              <h4 class="confirm-title">Enter your details</h4>
+              <form class="confirm-form" id="bookingForm" novalidate>
+                <div class="form-group form-group--light">
+                  <label for="bookName">Name</label>
+                  <input type="text" id="bookName" name="name" placeholder="Your name" required autocomplete="name" />
+                </div>
+                <div class="form-group form-group--light">
+                  <label for="bookEmail">Email</label>
+                  <input type="email" id="bookEmail" name="email" placeholder="you@email.com" required
+                    autocomplete="email" />
+                </div>
+                <div class="form-group form-group--light">
+                  <label for="bookNotes">Notes <span class="optional">(optional)</span></label>
+                  <textarea id="bookNotes" name="notes" rows="3"
+                    placeholder="What would you like to discuss?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-calendly btn-full">Confirm booking</button>
+                <p class="form-status form-status--dark" id="bookingStatus" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+
+            <div class="success-panel" id="successPanel" hidden>
+              <div class="success-icon" aria-hidden="true">✓</div>
+              <h4 class="success-title">You're booked!</h4>
+              <p class="success-text" id="successText"></p>
+              <button type="button" class="btn btn-calendly-outline" id="bookAgain">Book another slot</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section work" id="work">
+      <div class="container-wide">
+        <header class="section-head reveal">
+          <span class="eyebrow">Selected Projects</span>
+          <h2 class="section-title">Websites crafted for brands that want to stand out.</h2>
+        </header>
+
+        <div class="project-grid">
+          <a href="#" class="project-card reveal">
+            <div class="project-card-frame project-card-frame--1">
+              <div class="project-card-shot" aria-hidden="true"></div>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-name">ShopFlow</span>
+              <time class="project-card-year" datetime="2026">2026</time>
+            </div>
+          </a>
+
+          <a href="#" class="project-card reveal">
+            <div class="project-card-frame project-card-frame--2">
+              <div class="project-card-shot" aria-hidden="true"></div>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-name">PEM Technologies</span>
+              <time class="project-card-year" datetime="2025">2025</time>
+            </div>
+          </a>
+
+          <a href="#" class="project-card reveal">
+            <div class="project-card-frame project-card-frame--3">
+              <div class="project-card-shot" aria-hidden="true"></div>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-name">ThriveDoc</span>
+              <time class="project-card-year" datetime="2026">2026</time>
+            </div>
+          </a>
+
+          <a href="#" class="project-card reveal">
+            <div class="project-card-frame project-card-frame--4">
+              <div class="project-card-shot" aria-hidden="true"></div>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-name">Nova Finance</span>
+              <time class="project-card-year" datetime="2025">2025</time>
+            </div>
+          </a>
+        </div>
+
+        <div class="section-cta reveal">
+          <a href="projects.html" class="btn btn-outline">See all projects</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ — WeDevelopz accordion -->
+    <section class="section faq" id="faq">
+      <div class="container-wide faq-grid">
+        <header class="section-head reveal">
+          <span class="eyebrow">FAQ</span>
+          <h2 class="section-title">Answers to your questions</h2>
+          <p class="section-sub">Clear and helpful answers to all your inquiries.</p>
+        </header>
+        <div class="accordion reveal" id="faqAccordion">
+          <details class="accordion-item" open>
+            <summary>What kind of websites do you build?</summary>
+            <p>I design and develop modern websites for businesses that want to build trust, attract more customers, and
+              grow online. Whether you need a company website, landing page, or custom web application, every project is
+              tailored to your business.</p>
+          </details>
+          <details class="accordion-item">
+            <summary>How long does a project usually take?</summary>
+            <p>The timeline depends on the project's complexity. Most business websites are completed within 2–6 weeks,
+              while larger custom solutions may take longer. You'll receive a clear timeline before development begins.
+            </p>
+          </details>
+          <details class="accordion-item">
+            <summary>Will my website be optimized for SEO?</summary>
+            <p>Yes. Every website is built with SEO best practices, fast loading speeds, responsive design, and clean
+              code to help improve your visibility on search engines and deliver a better user experience.</p>
+          </details>
+          <details class="accordion-item">
+            <summary>Can I update the website myself?</summary>
+            <p>Absolutely. If your website includes a content management system (CMS), you'll be able to edit text,
+              images, blog posts, and other content without needing any technical skills.</p>
+          </details>
+          <details class="accordion-item">
+            <summary>What happens after my website goes live?</summary>
+            <p>Launching your website is just the beginning. You'll receive everything you need to manage it
+              confidently, and if you prefer ongoing support, I offer maintenance, updates, performance improvements,
+              and technical assistance whenever you need it.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section section--dark contact" id="contact">
+      <div class="container-wide contact-grid">
+        <div class="contact-intro reveal">
+          <span class="eyebrow eyebrow--light">Contact</span>
+          <h2 class="section-title section-title--light">Ready to move forward?</h2>
+          <p class="section-sub section-sub--light">
+            If you're exploring a new website or want expert guidance, I'm here to help you make the right decision.
+          </p>
+          <div class="contact-actions">
+            <a href="mailto:hello@ermili.dev" class="btn btn-accent">Contact me</a>
+            <a href="#book" class="btn btn-light-outline">Book a call</a>
+          </div>
+          <div class="contact-socials">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+            <a href="mailto:hello@ermili.dev" aria-label="Email">Email</a>
+          </div>
+        </div>
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="name" class="label-mono label-mono--light">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="email" class="label-mono label-mono--light">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@email.com" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="message" class="label-mono label-mono--light">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Tell me about your project..."
+              required></textarea>
+          </div>
+          <button type="submit" class="btn btn-accent btn-full">Send message</button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container-wide footer-inner">
+      <p class="footer-copy label-mono">BUILT WITH INTENT · &copy; <span id="year"></span> ermili.dev</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#about">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="#faq">FAQ</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms &amp; conditions</a>
+      </nav>
+      <a href="#about" class="back-top label-mono" aria-label="Back to top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="js/calendar.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
+</html>
