@@ -1,8 +1,8 @@
-import { CalEmbed } from "@/components/booking/cal-embed"
+import { CalEmbed } from "@/components/booking/cal-embed";
 
 export function BookingSection() {
   return (
-    <section className="section booking" id="book">
+    <section className="section booking hidden" id="book">
       <div className="container-wide">
         <header className="booking-head reveal">
           <span className="eyebrow">Let&apos;s talk!</span>
@@ -15,5 +15,5 @@ export function BookingSection() {
         <CalEmbed />
       </div>
     </section>
-  )
+  );
 }

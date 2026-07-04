@@ -1,41 +1,129 @@
 "use client"
 
-import { type FormEvent, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2 } from "lucide-react"
+import { toast } from "sonner"
 
+import { BrandCta } from "@/components/ui/brand-cta"
 import { site } from "@/content/site"
-import { validateContactForm } from "@/lib/validation/contact"
+import { contactSchema, type ContactFormData } from "@/lib/validation/contact"
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: string | HTMLElement,
+        options: {
+          sitekey: string
+          callback: (token: string) => void
+          "expired-callback"?: () => void
+          "error-callback"?: () => void
+          theme?: "light" | "dark" | "auto"
+        },
+      ) => string
+      reset: (widgetId: string) => void
+      remove: (widgetId: string) => void
+    }
+  }
+}
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""
 
 export function Contact() {
-  const [status, setStatus] = useState<{ type: "success" | "error" | ""; message: string }>({
-    type: "",
-    message: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+    reset,
+    clearErrors,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+      turnstileToken: "",
+    },
   })
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setStatus({ type: "", message: "" })
+  const turnstileRef = useRef<HTMLDivElement>(null)
+  const widgetIdRef = useRef<string | null>(null)
+  const [turnstileReady, setTurnstileReady] = useState(false)
 
-    const form = event.currentTarget
-    const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value.trim(),
-      email: (form.elements.namedItem("email") as HTMLInputElement).value.trim(),
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return
+
+    const interval = setInterval(() => {
+      if (window.turnstile) {
+        setTurnstileReady(true)
+        clearInterval(interval)
+      }
+    }, 100)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    if (!turnstileReady || !turnstileRef.current || !TURNSTILE_SITE_KEY) return
+    if (widgetIdRef.current !== null) return
+
+    widgetIdRef.current = window.turnstile!.render(turnstileRef.current, {
+      sitekey: TURNSTILE_SITE_KEY,
+      callback: (token: string) => {
+        setValue("turnstileToken", token, { shouldValidate: true })
+        clearErrors("turnstileToken")
+      },
+      "expired-callback": () => {
+        setValue("turnstileToken", "", { shouldValidate: false })
+      },
+      "error-callback": () => {
+        setValue("turnstileToken", "", { shouldValidate: false })
+      },
+      theme: "dark",
+    })
+
+    return () => {
+      if (widgetIdRef.current !== null && window.turnstile) {
+        window.turnstile.remove(widgetIdRef.current)
+        widgetIdRef.current = null
+      }
     }
+  }, [turnstileReady, setValue, clearErrors])
 
-    const error = validateContactForm(data)
-    if (error) {
-      setStatus({ type: "error", message: error })
-      return
+  const resetTurnstile = useCallback(() => {
+    if (widgetIdRef.current !== null && window.turnstile) {
+      window.turnstile.reset(widgetIdRef.current)
     }
+    setValue("turnstileToken", "", { shouldValidate: false })
+  }, [setValue])
 
-    const subject = encodeURIComponent(`Website inquiry from ${data.name}`)
-    const body = encodeURIComponent(
-      `Name: ${data.name}\nEmail: ${data.email}\n\n${data.message}`
-    )
-    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
 
-    setStatus({ type: "success", message: "Opening your email client…" })
-    form.reset()
+      const json = await res.json()
+
+      if (!res.ok) {
+        toast.error(json.error ?? "Something went wrong.")
+        resetTurnstile()
+        return
+      }
+
+      toast.success(json.message ?? "Message sent successfully!")
+      reset()
+      resetTurnstile()
+    } catch {
+      toast.error("Network error. Please check your connection and try again.")
+      resetTurnstile()
+    }
   }
 
   return (
@@ -49,12 +137,12 @@ export function Contact() {
             help you make the right decision.
           </p>
           <div className="contact-actions">
-            <a href={`mailto:${site.email}`} className="btn btn-accent">
+            <BrandCta href={`mailto:${site.email}`} variant="primary">
               Contact me
-            </a>
-            <a href="/#book" className="btn btn-light-outline">
+            </BrandCta>
+            <BrandCta href="/#book" variant="ghost" arrow>
               Book a call
-            </a>
+            </BrandCta>
           </div>
           <div className="contact-socials">
             <a
@@ -74,7 +162,7 @@ export function Contact() {
           className="contact-form reveal"
           id="contactForm"
           noValidate
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="form-group">
             <label htmlFor="name" className="label-mono label-mono--light">
@@ -83,11 +171,14 @@ export function Contact() {
             <input
               type="text"
               id="name"
-              name="name"
               placeholder="Your name"
-              required
               autoComplete="name"
+              aria-invalid={!!errors.name}
+              {...register("name")}
             />
+            {errors.name && (
+              <p className="field-error" role="alert">{errors.name.message}</p>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="email" className="label-mono label-mono--light">
@@ -96,11 +187,29 @@ export function Contact() {
             <input
               type="email"
               id="email"
-              name="email"
               placeholder="you@email.com"
-              required
               autoComplete="email"
+              aria-invalid={!!errors.email}
+              {...register("email")}
             />
+            {errors.email && (
+              <p className="field-error" role="alert">{errors.email.message}</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone" className="label-mono label-mono--light">
+              Phone <span className="label-optional">(optional)</span>
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              placeholder="+1 (555) 000-0000"
+              autoComplete="tel"
+              {...register("phone")}
+            />
+            {errors.phone && (
+              <p className="field-error" role="alert">{errors.phone.message}</p>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="message" className="label-mono label-mono--light">
@@ -108,23 +217,39 @@ export function Contact() {
             </label>
             <textarea
               id="message"
-              name="message"
               rows={4}
               placeholder="Tell me about your project..."
-              required
+              aria-invalid={!!errors.message}
+              {...register("message")}
             />
+            {errors.message && (
+              <p className="field-error" role="alert">{errors.message.message}</p>
+            )}
           </div>
-          <button type="submit" className="btn btn-accent btn-full">
-            Send message
-          </button>
-          <p
-            className={`form-status${status.type ? ` ${status.type}` : ""}`}
-            id="formStatus"
-            role="status"
-            aria-live="polite"
+
+          <div className="turnstile-wrapper" ref={turnstileRef} />
+          {errors.turnstileToken && (
+            <p className="field-error" role="alert" style={{ marginBottom: "1rem" }}>
+              {errors.turnstileToken.message}
+            </p>
+          )}
+
+          <BrandCta
+            as="button"
+            type="submit"
+            variant="primary"
+            full
+            disabled={isSubmitting}
           >
-            {status.message}
-          </p>
+            {isSubmitting ? (
+              <>
+                <Loader2 className="animate-spin" size={18} />
+                Sending…
+              </>
+            ) : (
+              "Send message"
+            )}
+          </BrandCta>
         </form>
       </div>
     </section>

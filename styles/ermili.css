@@ -42,7 +42,6 @@
   }
 
   html {
-    scroll-behavior: smooth;
     scroll-padding-top: 5rem;
   }
 
@@ -148,6 +147,11 @@ main {
 
 .label-mono--light {
   color: var(--text-muted);
+}
+
+.label-optional {
+  font-weight: 400;
+  opacity: 0.6;
 }
 
 .accent-dot {
@@ -594,6 +598,16 @@ main {
   color: #e88;
 }
 
+.field-error {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: #e88;
+}
+
+.turnstile-wrapper {
+  margin-bottom: 1rem;
+}
+
 /* ---- Footer ---- */
 .footer {
   padding-block: 2.5rem;
@@ -663,7 +677,10 @@ main {
 
 .booking-widget {
   display: grid;
-  grid-template-columns: minmax(220px, 280px) minmax(260px, 1fr) minmax(200px, 240px);
+  grid-template-columns: minmax(220px, 280px) minmax(260px, 1fr) minmax(
+      200px,
+      240px
+    );
   background: #fff;
   border: 1px solid #e5e5e5;
   border-radius: 12px;

@@ -1,14 +1,16 @@
-import Link from "next/link"
+"use client"
+
+import { BrandCta } from "@/components/ui/brand-cta"
 
 export function HeroActions() {
   return (
     <>
-      <Link href="/#book" className="btn btn-accent">
-        Book a call
-      </Link>
-      <Link href="/projects" className="btn btn-outline">
-        View work
-      </Link>
+      <BrandCta href="/#book" variant="primary" magnetic>
+        Book a Strategy Call
+      </BrandCta>
+      <BrandCta href="/projects" variant="secondary" arrow>
+        View Work
+      </BrandCta>
     </>
   )
 }

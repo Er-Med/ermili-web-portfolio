@@ -1,16 +1,39 @@
 "use client"
 
-import Link from "next/link"
+import { motion, useReducedMotion, type Variants } from "framer-motion"
 
+import { ProjectCard } from "@/components/projects/project-card"
 import { Reveal } from "@/components/motion/reveal"
-import { Stagger, StaggerItem } from "@/components/motion/stagger"
 import { Container } from "@/components/ui/container"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { SectionHeading } from "@/components/ui/section-heading"
-import { SiteButton } from "@/components/ui/site-button"
+import { BrandCta } from "@/components/ui/brand-cta"
 import type { Project } from "@/content/projects"
-import { frameGradients } from "@/lib/frame-gradients"
 import { cn } from "@/lib/utils"
+
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
+
+const gridContainer: Variants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+  },
+}
+
+const gridItem: Variants = {
+  hidden: { opacity: 0, y: 28, scale: 0.96 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.9, ease: EASE },
+  },
+}
+
+const gridItemReduced: Variants = {
+  hidden: { opacity: 1, y: 0, scale: 1 },
+  show: { opacity: 1, y: 0, scale: 1 },
+}
 
 type ProjectGridProps = {
   projects: Project[]
@@ -34,52 +57,42 @@ export function ProjectGrid({
   sectionClassName,
   id = "work",
 }: ProjectGridProps) {
+  const prefersReduced = useReducedMotion()
+
   return (
     <section className={cn(defaultSectionClass, sectionClassName)} id={id}>
       <Container>
-        <Reveal>
-          <header className="mb-14">
+        <header className="mb-14">
+          <Reveal delay={0}>
             <Eyebrow>{eyebrow}</Eyebrow>
+          </Reveal>
+          <Reveal delay={0.15}>
             <SectionHeading title={title} as={TitleTag} />
-          </header>
-        </Reveal>
+          </Reveal>
+        </header>
 
-        <Stagger className="grid grid-cols-2 gap-x-8 gap-y-10 max-[960px]:grid-cols-1 max-[960px]:gap-6">
+        <motion.div
+          variants={gridContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-2 gap-x-8 gap-y-10 max-[960px]:grid-cols-1 max-[960px]:gap-6"
+        >
           {projects.map((project) => (
-            <StaggerItem key={project.slug}>
-              <Link href={project.href ?? "#"} className="group block">
-                <div
-                  className={cn(
-                    "flex aspect-[16/10] items-center justify-center overflow-hidden rounded-[20px] p-[clamp(1.5rem,4vw,2.5rem)]",
-                    frameGradients[project.frameClass]
-                  )}
-                >
-                  <div
-                    className="aspect-[16/10] w-[78%] rounded-xl bg-white shadow-[0_24px_48px_rgba(0,0,0,0.12)] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:-translate-y-1.5 group-hover:shadow-[0_32px_56px_rgba(0,0,0,0.16)]"
-                    aria-hidden="true"
-                  />
-                </div>
-                <div className="mt-4 flex items-baseline justify-between gap-4 px-0.5">
-                  <span className="text-base font-medium text-brand-text">
-                    {project.name}
-                  </span>
-                  <time
-                    className="shrink-0 text-base text-brand-muted"
-                    dateTime={String(project.year)}
-                  >
-                    {project.year}
-                  </time>
-                </div>
-              </Link>
-            </StaggerItem>
+            <motion.div
+              key={project.slug}
+              variants={prefersReduced ? gridItemReduced : gridItem}
+            >
+              <ProjectCard project={project} />
+            </motion.div>
           ))}
-        </Stagger>
+        </motion.div>
 
         {showCta && (
           <Reveal className="mt-12 text-center">
-            <SiteButton href="/projects" variant="outline">
+            <BrandCta href="/projects" variant="secondary" arrow>
               See all projects
-            </SiteButton>
+            </BrandCta>
           </Reveal>
         )}
       </Container>

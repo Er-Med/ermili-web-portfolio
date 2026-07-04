@@ -11,6 +11,7 @@ export type Project = {
   year: number
   frameClass: ProjectFrameClass
   href?: string
+  image?: string
 }
 
 export const projects: Project[] = [
@@ -19,24 +20,28 @@ export const projects: Project[] = [
     name: "ShopFlow",
     year: 2026,
     frameClass: "project-card-frame--1",
+    image: "/project1.jpg",
   },
   {
     slug: "pem-technologies",
     name: "PEM Technologies",
     year: 2025,
     frameClass: "project-card-frame--2",
+    image: "/project2.jpg",
   },
   {
     slug: "thrivedoc",
     name: "ThriveDoc",
     year: 2026,
     frameClass: "project-card-frame--3",
+    image: "/project3.jpg",
   },
   {
     slug: "nova-finance",
     name: "Nova Finance",
     year: 2025,
     frameClass: "project-card-frame--4",
+    image: "/project4.jpg",
   },
   {
     slug: "atlas-studio",
