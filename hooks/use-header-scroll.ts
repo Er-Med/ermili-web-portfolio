@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react"
 
-const DOCK_THRESHOLD = 80
+const DOCK_THRESHOLD = 130
 const DARK_SECTION_SELECTOR = ".section--dark, .featured-card, .meet-card"
 
 function getHeaderHeight(varName: string): number {
