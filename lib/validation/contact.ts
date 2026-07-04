@@ -8,9 +8,7 @@ export const contactSchema = z.object({
   email: z.email("Please enter a valid email address."),
   phone: z
     .string()
-    .max(30, "Phone number is too long.")
-    .optional()
-    .default(""),
+    .max(30, "Phone number is too long."),
   message: z
     .string()
     .min(10, "Message must be at least 10 characters.")
