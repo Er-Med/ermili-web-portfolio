@@ -5,6 +5,7 @@ import { Faq } from "@/components/sections/faq"
 import { Hero } from "@/components/sections/hero"
 import { HeroActions } from "@/components/sections/hero-actions"
 import { Meet } from "@/components/sections/meet"
+import { Process } from "@/components/sections/process"
 import { featuredProjects } from "@/content/projects"
 
 export default function HomePage() {
@@ -19,6 +20,7 @@ export default function HomePage() {
         title="Websites crafted for brands that want to stand out."
         showCta
       />
+      <Process />
       <Faq />
       <Contact />
     </>
