@@ -57,7 +57,7 @@ export function Meet() {
           lineOne={
             <>
               {t("lineOne")}{" "}
-              <em className="font-medium italic text-brand-muted">
+              <em className="font-medium not-italic text-brand-muted md:italic">
                 {t("lineOneEmphasis")}
               </em>
             </>
@@ -65,7 +65,7 @@ export function Meet() {
           lineTwo={
             <>
               {t("lineTwo")}{" "}
-              <em className="font-medium italic text-brand-muted">
+              <em className="font-medium not-italic text-brand-muted md:italic">
                 {t("lineTwoEmphasis")}
               </em>
             </>
