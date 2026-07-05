@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef } from "react"
+import { useTranslations } from "next-intl"
 import {
   motion,
   useScroll,
@@ -14,45 +15,11 @@ import { Container } from "@/components/ui/container"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { SectionHeading } from "@/components/ui/section-heading"
 
-/* ——— Constants ——— */
-
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 const SPRING = { stiffness: 60, damping: 22, mass: 0.8 }
 
-const STEPS = [
-  {
-    number: "01",
-    title: "Discovery",
-    description:
-      "I dig into your business, audience, and goals. We align on what success looks like before a single pixel is placed.",
-  },
-  {
-    number: "02",
-    title: "Strategy",
-    description:
-      "Content structure, user flows, and positioning — mapped out so every design decision serves a clear purpose.",
-  },
-  {
-    number: "03",
-    title: "Design",
-    description:
-      "High-fidelity visuals that capture your brand's personality. Refined until every detail feels intentional.",
-  },
-  {
-    number: "04",
-    title: "Development",
-    description:
-      "Clean, performant code. Built responsive from the start with smooth interactions and fast load times.",
-  },
-  {
-    number: "05",
-    title: "Launch",
-    description:
-      "Final QA, deployment, and handoff. Your site goes live polished and production-ready.",
-  },
-] as const
-
-/* ——— Animation variants ——— */
+const STEP_KEYS = ["discovery", "strategy", "design", "development", "launch"] as const
+const STEP_NUMBERS = ["01", "02", "03", "04", "05"] as const
 
 const headingFadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -102,17 +69,16 @@ const textFadeUp: Variants = {
   },
 }
 
-/* ——— Reduced motion fallbacks ——— */
-
 const reducedVariant: Variants = {
   hidden: { opacity: 1 },
   show: { opacity: 1 },
 }
 
-/* ——— Process step item ——— */
-
 type ProcessItemProps = {
-  step: (typeof STEPS)[number]
+  stepKey: string
+  number: string
+  title: string
+  description: string
   index: number
   activeProgress: ReturnType<typeof useSpring>
   totalSteps: number
@@ -120,7 +86,9 @@ type ProcessItemProps = {
 }
 
 function ProcessItem({
-  step,
+  number,
+  title,
+  description,
   index,
   activeProgress,
   totalSteps,
@@ -159,7 +127,7 @@ function ProcessItem({
           variants={reduced ? reducedVariant : numberScale}
           style={color ? { color } : undefined}
         >
-          {step.number}
+          {number}
         </motion.span>
 
         <motion.div
@@ -167,10 +135,10 @@ function ProcessItem({
           variants={reduced ? reducedVariant : textFadeUp}
         >
           <h3 className="font-sans text-[clamp(1.25rem,2.5vw,1.75rem)] font-semibold tracking-[-0.02em]">
-            {step.title}
+            {title}
           </h3>
           <p className="mt-2 max-w-[44ch] text-[0.95rem] leading-[1.7] text-brand-muted">
-            {step.description}
+            {description}
           </p>
         </motion.div>
       </motion.div>
@@ -178,9 +146,8 @@ function ProcessItem({
   )
 }
 
-/* ——— Process section ——— */
-
 export function Process() {
+  const t = useTranslations("process")
   const sectionRef = useRef<HTMLElement>(null)
   const prefersReduced = useReducedMotion()
   const reduced = !!prefersReduced
@@ -206,11 +173,8 @@ export function Process() {
           viewport={{ once: true, amount: 0.3 }}
           variants={headingFadeUp}
         >
-          <Eyebrow>Process</Eyebrow>
-          <SectionHeading
-            title="How I bring your project to life"
-            subtitle="A clear, collaborative workflow — from first conversation to final launch."
-          />
+          <Eyebrow>{t("eyebrow")}</Eyebrow>
+          <SectionHeading title={t("title")} subtitle={t("subtitle")} />
         </motion.header>
 
         <motion.div
@@ -219,13 +183,16 @@ export function Process() {
           whileInView="show"
           viewport={{ once: true, amount: 0.15 }}
         >
-          {STEPS.map((step, index) => (
+          {STEP_KEYS.map((key, index) => (
             <ProcessItem
-              key={step.number}
-              step={step}
+              key={key}
+              stepKey={key}
+              number={STEP_NUMBERS[index]}
+              title={t(`steps.${key}.title`)}
+              description={t(`steps.${key}.description`)}
               index={index}
               activeProgress={smoothProgress}
-              totalSteps={STEPS.length}
+              totalSteps={STEP_KEYS.length}
               reduced={reduced}
             />
           ))}

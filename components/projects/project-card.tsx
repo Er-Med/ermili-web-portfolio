@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import Image from "next/image"
-import Link from "next/link"
+import { useTranslations } from "next-intl"
 import {
   motion,
   useScroll,
@@ -14,6 +14,7 @@ import {
 import type { Project } from "@/content/projects"
 import { frameGradients } from "@/lib/frame-gradients"
 import { cn } from "@/lib/utils"
+import { Link } from "@/i18n/navigation"
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -48,6 +49,7 @@ type ProjectCardProps = {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const t = useTranslations("projects")
   const cardRef = useRef<HTMLDivElement>(null)
   const prefersReduced = useReducedMotion()
 
@@ -103,7 +105,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   "group-hover:translate-y-0 group-hover:opacity-100"
                 )}
               >
-                View Project &rarr;
+                {t("viewProject")} &rarr;
               </span>
             </div>
           </motion.div>

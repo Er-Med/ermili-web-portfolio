@@ -1,60 +1,65 @@
-"use client"
+"use client";
 
-import { useCallback, useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useCallback, useEffect } from "react";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import {
   AnimatePresence,
   motion,
   useMotionValue,
   useReducedMotion,
-} from "framer-motion"
+} from "framer-motion";
 
 import {
   useLogoTransition,
   LOGO_MORPH_TRANSITION,
-} from "@/components/motion/logo-transition"
-import { site } from "@/content/site"
-import { useActiveSection, type SectionId } from "@/hooks/use-active-section"
-import { useHeaderScroll } from "@/hooks/use-header-scroll"
-import { cn } from "@/lib/utils"
+} from "@/components/motion/logo-transition";
+import { site } from "@/content/site";
+import { useActiveSection, type SectionId } from "@/hooks/use-active-section";
+import { useFooterVisibility } from "@/hooks/use-footer-visibility";
+import { useHeaderScroll } from "@/hooks/use-header-scroll";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
-/* ——— Easing & transitions ——— */
-
-const ease = [0.22, 1, 0.36, 1] as const
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const showTransition = {
   opacity: { duration: 0.5, ease },
   y: { type: "spring" as const, stiffness: 240, damping: 26, mass: 0.8 },
   scale: { type: "spring" as const, stiffness: 280, damping: 24, mass: 0.7 },
   filter: { duration: 0.55, ease },
-}
+};
 
 const hideTransition = {
   opacity: { duration: 0.3, ease },
   y: { duration: 0.35, ease },
   scale: { duration: 0.3, ease },
   filter: { duration: 0.25, ease },
-}
+};
 
-/* ——— Nav link config ——— */
+const footerHideTransition = {
+  opacity: { duration: 0.4, ease },
+  y: { duration: 0.45, ease },
+  scale: { duration: 0.4, ease },
+  filter: { duration: 0.35, ease },
+  pointerEvents: { duration: 0 },
+};
 
 type NavItem = {
-  label: string
-  href: string
-  sectionId?: SectionId
-  isPage?: boolean
-}
+  labelKey: "about" | "projects" | "process" | "faq" | "contact";
+  href: string;
+  sectionId?: SectionId;
+  isPage?: boolean;
+};
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Projects", href: "/projects", sectionId: "projects", isPage: true },
-  { label: "Process", href: "/#process", sectionId: "process" },
-  { label: "FAQ", href: "/#faq", sectionId: "faq" },
-  { label: "Contact", href: "/#contact", sectionId: "contact" },
-]
-
-/* ——— Mobile stagger ——— */
+  { labelKey: "about", href: "/#about", sectionId: "about" },
+  { labelKey: "projects", href: "/projects", sectionId: "projects", isPage: true },
+  { labelKey: "process", href: "/#process", sectionId: "process" },
+  { labelKey: "faq", href: "/#faq", sectionId: "faq" },
+  { labelKey: "contact", href: "/#contact", sectionId: "contact" },
+];
 
 const mobileStaggerContainer = {
   hidden: {},
@@ -64,7 +69,7 @@ const mobileStaggerContainer = {
   exit: {
     transition: { staggerChildren: 0.03, staggerDirection: -1 },
   },
-}
+};
 
 const mobileStaggerItem = {
   hidden: { opacity: 0, y: 8, filter: "blur(4px)" },
@@ -80,21 +85,29 @@ const mobileStaggerItem = {
     filter: "blur(4px)",
     transition: { duration: 0.2, ease },
   },
-}
+};
 
 const mobileStaggerItemReduced = {
   hidden: { opacity: 1, y: 0, filter: "blur(0px)" },
   show: { opacity: 1, y: 0, filter: "blur(0px)" },
   exit: { opacity: 0 },
-}
+};
 
-/* ——— Language Switcher ——— */
+function LanguageSwitcher({ compact }: { compact?: boolean; }) {
+  const locale = useLocale() as Locale;
+  const router = useRouter();
+  const pathname = usePathname();
+  const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("nav");
 
-type Language = "en" | "fr"
-
-function LanguageSwitcher({ compact }: { compact?: boolean }) {
-  const [lang, setLang] = useState<Language>("en")
-  const shouldReduceMotion = useReducedMotion()
+  const switchLocale = useCallback(
+    (newLocale: Locale) => {
+      if (newLocale === locale) return;
+      document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000;SameSite=Lax`;
+      router.replace(pathname, { locale: newLocale });
+    },
+    [locale, pathname, router],
+  );
 
   return (
     <div
@@ -103,15 +116,14 @@ function LanguageSwitcher({ compact }: { compact?: boolean }) {
         compact && "w-full justify-center",
       )}
       role="radiogroup"
-      aria-label="Language"
+      aria-label={t("language")}
     >
-      {/* Sliding indicator */}
       <motion.div
         className="absolute inset-y-[3px] rounded-full bg-white/[0.12]"
         initial={false}
         animate={{
-          left: lang === "en" ? 3 : "calc(50% + 1px)",
-          right: lang === "en" ? "calc(50% + 1px)" : 3,
+          left: locale === "en" ? 3 : "calc(50% + 1px)",
+          right: locale === "en" ? "calc(50% + 1px)" : 3,
         }}
         transition={
           shouldReduceMotion
@@ -123,11 +135,11 @@ function LanguageSwitcher({ compact }: { compact?: boolean }) {
         <button
           key={l}
           role="radio"
-          aria-checked={lang === l}
-          onClick={() => setLang(l)}
+          aria-checked={locale === l}
+          onClick={() => switchLocale(l)}
           className={cn(
             "relative z-[1] cursor-pointer border-none bg-transparent px-[10px] py-[5px] font-sans text-[0.7rem] font-medium uppercase tracking-[0.08em] transition-colors duration-300",
-            lang === l
+            locale === l
               ? "text-white"
               : "text-white/40 hover:text-white/65",
           )}
@@ -136,10 +148,8 @@ function LanguageSwitcher({ compact }: { compact?: boolean }) {
         </button>
       ))}
     </div>
-  )
+  );
 }
-
-/* ——— Nav Link ——— */
 
 function NavLink({
   item,
@@ -147,18 +157,19 @@ function NavLink({
   isProjects,
   onNavigate,
 }: {
-  item: NavItem
-  isActive: boolean
-  isProjects: boolean
-  onNavigate: () => void
+  item: NavItem;
+  isActive: boolean;
+  isProjects: boolean;
+  onNavigate: () => void;
 }) {
-  const shouldReduceMotion = useReducedMotion()
+  const t = useTranslations("nav");
+  const shouldReduceMotion = useReducedMotion();
   const href =
     item.isPage
       ? item.href
       : isProjects
         ? item.href
-        : item.href.replace("/#", "#")
+        : item.href.replace("/#", "#");
 
   return (
     <Link
@@ -174,9 +185,8 @@ function NavLink({
       }
       onClick={onNavigate}
     >
-      {item.label}
+      {t(item.labelKey)}
 
-      {/* Active indicator underline */}
       {isActive && (
         <motion.span
           className="absolute inset-x-3 -bottom-[3px] h-[1.5px] rounded-full bg-white/70"
@@ -185,22 +195,19 @@ function NavLink({
             shouldReduceMotion
               ? { duration: 0 }
               : {
-                  type: "spring",
-                  stiffness: 380,
-                  damping: 30,
-                  mass: 0.8,
-                }
+                type: "spring",
+                stiffness: 380,
+                damping: 30,
+                mass: 0.8,
+              }
           }
         />
       )}
 
-      {/* Hover highlight bg */}
       <span className="pointer-events-none absolute inset-0 rounded-lg bg-white/0 transition-[background-color] duration-300 group-hover:bg-white/[0.06]" />
     </Link>
-  )
+  );
 }
-
-/* ——— Mobile Nav Link ——— */
 
 function MobileNavLink({
   item,
@@ -209,18 +216,19 @@ function MobileNavLink({
   onNavigate,
   variants,
 }: {
-  item: NavItem
-  isActive: boolean
-  isProjects: boolean
-  onNavigate: () => void
-  variants: typeof mobileStaggerItem | typeof mobileStaggerItemReduced
+  item: NavItem;
+  isActive: boolean;
+  isProjects: boolean;
+  onNavigate: () => void;
+  variants: typeof mobileStaggerItem | typeof mobileStaggerItemReduced;
 }) {
+  const t = useTranslations("nav");
   const href =
     item.isPage
       ? item.href
       : isProjects
         ? item.href
-        : item.href.replace("/#", "#")
+        : item.href.replace("/#", "#");
 
   return (
     <motion.div variants={variants}>
@@ -234,25 +242,24 @@ function MobileNavLink({
         )}
         onClick={onNavigate}
       >
-        {item.label}
+        {t(item.labelKey)}
         {isActive && (
           <span className="ml-auto h-1 w-1 rounded-full bg-white/70" />
         )}
       </Link>
     </motion.div>
-  )
+  );
 }
-
-/* ——— CTA Button ——— */
 
 function CtaButton({
   onClick,
   mobile,
 }: {
-  onClick: () => void
-  mobile?: boolean
+  onClick: () => void;
+  mobile?: boolean;
 }) {
-  const shouldReduceMotion = useReducedMotion()
+  const t = useTranslations("nav");
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.div
@@ -265,7 +272,7 @@ function CtaButton({
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
       <Link
-        href="/#book"
+        href="/#contact"
         className={cn(
           "inline-flex items-center justify-center rounded-full border border-white/[0.06] bg-[#efeeec] px-5 py-2.5 text-[0.8rem] font-medium tracking-[-0.01em] whitespace-nowrap text-[#141414] transition-all duration-300",
           "hover:bg-white hover:shadow-[0_2px_20px_rgba(255,255,255,0.08)]",
@@ -274,37 +281,36 @@ function CtaButton({
         )}
         onClick={onClick}
       >
-        Book a call
+        {t("bookCall")}
       </Link>
     </motion.div>
-  )
+  );
 }
-
-/* ——— Logo ——— */
 
 function NavLogo({
   isHeroLogoActive,
   onClick,
 }: {
-  isHeroLogoActive: boolean
-  onClick: () => void
+  isHeroLogoActive: boolean;
+  onClick: () => void;
 }) {
-  const shouldReduceMotion = useReducedMotion()
-  const logoScale = useMotionValue(1)
+  const t = useTranslations("nav");
+  const shouldReduceMotion = useReducedMotion();
+  const logoScale = useMotionValue(1);
 
   const handleHoverStart = useCallback(() => {
-    if (!shouldReduceMotion) logoScale.set(1.04)
-  }, [shouldReduceMotion, logoScale])
+    if (!shouldReduceMotion) logoScale.set(1.04);
+  }, [shouldReduceMotion, logoScale]);
 
   const handleHoverEnd = useCallback(() => {
-    logoScale.set(1)
-  }, [logoScale])
+    logoScale.set(1);
+  }, [logoScale]);
 
   return (
     <Link
       href="/"
       className="flex shrink-0 items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:rounded-lg"
-      aria-label={`${site.name} home`}
+      aria-label={t("home", { siteName: site.name })}
       onClick={onClick}
     >
       <motion.span
@@ -343,19 +349,17 @@ function NavLogo({
         )}
       </motion.span>
     </Link>
-  )
+  );
 }
-
-/* ——— Hamburger ——— */
 
 function Hamburger({
   open,
   onToggle,
 }: {
-  open: boolean
-  onToggle: () => void
+  open: boolean;
+  onToggle: () => void;
 }) {
-  const shouldReduceMotion = useReducedMotion()
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.button
@@ -373,9 +377,9 @@ function Hamburger({
           shouldReduceMotion
             ? undefined
             : {
-                rotate: open ? 45 : 0,
-                y: open ? 3.75 : 0,
-              }
+              rotate: open ? 45 : 0,
+              y: open ? 3.75 : 0,
+            }
         }
         transition={{ duration: 0.3, ease }}
       />
@@ -385,41 +389,76 @@ function Hamburger({
           shouldReduceMotion
             ? undefined
             : {
-                rotate: open ? -45 : 0,
-                y: open ? -3.75 : 0,
-              }
+              rotate: open ? -45 : 0,
+              y: open ? -3.75 : 0,
+            }
         }
         transition={{ duration: 0.3, ease }}
       />
     </motion.button>
-  )
+  );
 }
 
-/* ——— Main Header ——— */
-
 export function SiteHeader() {
-  const pathname = usePathname()
-  const { isDocked, mobileOpen, toggleMobile, closeMobile } = useHeaderScroll()
-  const shouldReduceMotion = useReducedMotion()
-  const activeSection = useActiveSection()
+  const pathname = usePathname();
+  const { isDocked, mobileOpen, toggleMobile, closeMobile } = useHeaderScroll();
+  const isFooterVisible = useFooterVisibility();
+  const shouldReduceMotion = useReducedMotion();
+  const activeSection = useActiveSection();
 
-  const { isHeroLogoActive } = useLogoTransition()
-  const isProjects = pathname === "/projects"
+  const { isHeroLogoActive } = useLogoTransition();
+  const isProjects = pathname === "/projects";
   const itemVariants = shouldReduceMotion
     ? mobileStaggerItemReduced
-    : mobileStaggerItem
+    : mobileStaggerItem;
+
+  const isNavVisible = isDocked && !isFooterVisible;
+
+  useEffect(() => {
+    if (isFooterVisible) closeMobile();
+  }, [isFooterVisible, closeMobile]);
 
   const isLinkActive = (item: NavItem) => {
-    if (item.isPage && isProjects) return true
+    if (item.isPage && isProjects) return true;
     if (!isProjects && item.sectionId && activeSection === item.sectionId)
-      return true
-    return false
-  }
+      return true;
+    return false;
+  };
 
-  const visible = { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
-  const hidden = { opacity: 0, y: 28, scale: 0.96, filter: "blur(6px)" }
-  const reducedVisible = { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
-  const reducedHidden = { opacity: 0, y: 0, scale: 1, filter: "blur(0px)" }
+  const visible = {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    pointerEvents: "auto" as const,
+  };
+  const hidden = {
+    opacity: 0,
+    y: 36,
+    scale: 0.96,
+    filter: "blur(6px)",
+    pointerEvents: "none" as const,
+  };
+  const reducedVisible = {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    pointerEvents: "auto" as const,
+  };
+  const reducedHidden = {
+    opacity: 0,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    pointerEvents: "none" as const,
+  };
+
+  const navTransition = !isNavVisible
+    ? isFooterVisible && isDocked
+      ? footerHideTransition
+      : hideTransition
+    : showTransition;
 
   return (
     <motion.header
@@ -428,7 +467,7 @@ export function SiteHeader() {
       style={{ willChange: "transform, opacity, filter" }}
       initial={shouldReduceMotion ? reducedHidden : hidden}
       animate={
-        isDocked
+        isNavVisible
           ? shouldReduceMotion
             ? reducedVisible
             : visible
@@ -436,27 +475,24 @@ export function SiteHeader() {
             ? reducedHidden
             : hidden
       }
-      transition={isDocked ? showTransition : hideTransition}
+      transition={navTransition}
     >
-      {/* Pill container */}
       <nav
         className={cn(
-          "pointer-events-auto flex h-auto w-auto items-center gap-1 rounded-2xl border border-white/[0.1] p-[5px]",
+          "flex h-auto w-auto items-center gap-1 rounded-2xl border border-white/[0.1] p-[5px]",
           "bg-[rgb(28_28_28_/_0.82)] shadow-[0_4px_24px_rgba(0,0,0,0.25),_0_0_0_0.5px_rgba(255,255,255,0.06)_inset] backdrop-blur-xl",
           "max-sm:min-h-[48px] max-sm:gap-0.5 max-sm:p-[4px]",
         )}
         role="navigation"
         aria-label="Main"
       >
-        {/* Logo */}
         <NavLogo isHeroLogoActive={isHeroLogoActive} onClick={closeMobile} />
 
-        {/* Desktop nav links */}
         <div className="hidden items-center sm:flex">
           <div className="mx-1 flex items-center gap-0.5 rounded-xl bg-white/[0.04] px-1 py-0.5">
             {NAV_ITEMS.map((item) => (
               <NavLink
-                key={item.label}
+                key={item.labelKey}
                 item={item}
                 isActive={isLinkActive(item)}
                 isProjects={isProjects}
@@ -466,33 +502,27 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Separator */}
         <div
           className="mx-0.5 hidden h-5 w-px bg-white/[0.08] sm:block"
           aria-hidden="true"
         />
 
-        {/* Language Switcher — Desktop */}
         <div className="hidden sm:flex">
           <LanguageSwitcher />
         </div>
 
-        {/* Separator */}
         <div
           className="mx-0.5 hidden h-5 w-px bg-white/[0.08] sm:block"
           aria-hidden="true"
         />
 
-        {/* CTA — Desktop */}
         <div className="hidden sm:flex">
           <CtaButton onClick={closeMobile} />
         </div>
 
-        {/* Mobile hamburger */}
         <Hamburger open={mobileOpen} onToggle={toggleMobile} />
       </nav>
 
-      {/* Mobile panel */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -527,7 +557,7 @@ export function SiteHeader() {
             >
               {NAV_ITEMS.map((item) => (
                 <MobileNavLink
-                  key={item.label}
+                  key={item.labelKey}
                   item={item}
                   isActive={isLinkActive(item)}
                   isProjects={isProjects}
@@ -536,18 +566,15 @@ export function SiteHeader() {
                 />
               ))}
 
-              {/* Divider */}
               <motion.div
                 variants={itemVariants}
                 className="mx-2 my-1 h-px bg-white/[0.08]"
               />
 
-              {/* Language switcher — Mobile */}
               <motion.div variants={itemVariants}>
                 <LanguageSwitcher compact />
               </motion.div>
 
-              {/* CTA — Mobile */}
               <motion.div variants={itemVariants} className="mt-1">
                 <CtaButton onClick={closeMobile} mobile />
               </motion.div>
@@ -556,5 +583,5 @@ export function SiteHeader() {
         )}
       </AnimatePresence>
     </motion.header>
-  )
+  );
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 import {
   motion,
   AnimatePresence,
@@ -11,10 +12,10 @@ import {
 import { Container } from "@/components/ui/container"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { SectionHeading } from "@/components/ui/section-heading"
-import type { FaqItem as FaqItemType } from "@/content/faq"
-import { faqItems } from "@/content/faq"
 
 const ease = [0.4, 0, 0.2, 1] as const
+
+const FAQ_KEYS = ["whatKind", "howLong", "seo", "update", "afterLaunch"] as const
 
 const staggerContainer: Variants = {
   hidden: {},
@@ -47,14 +48,16 @@ const reducedDivider: Variants = {
 }
 
 type FaqAccordionItemProps = {
-  item: FaqItemType
+  question: string
+  answer: string
   open: boolean
   onToggle: () => void
   reducedMotion: boolean
 }
 
 function FaqAccordionItem({
-  item,
+  question,
+  answer,
   open,
   onToggle,
   reducedMotion,
@@ -72,7 +75,7 @@ function FaqAccordionItem({
         onClick={onToggle}
         className="flex w-full cursor-pointer items-center justify-between py-[1.35rem] text-left text-base font-medium transition-colors duration-300 hover:text-brand-muted"
       >
-        {item.question}
+        {question}
         <motion.span
           aria-hidden
           className="ml-4 shrink-0 font-mono text-[1.1rem] leading-none text-brand-muted"
@@ -94,7 +97,7 @@ function FaqAccordionItem({
             className="overflow-hidden"
           >
             <p className="max-w-[52ch] pb-[1.35rem] text-[0.95rem] leading-[1.7] text-brand-muted">
-              {item.answer}
+              {answer}
             </p>
           </motion.div>
         )}
@@ -104,6 +107,7 @@ function FaqAccordionItem({
 }
 
 export function Faq() {
+  const t = useTranslations("faq")
   const [openIndex, setOpenIndex] = useState(0)
   const shouldReduceMotion = useReducedMotion()
   const reduced = !!shouldReduceMotion
@@ -121,11 +125,8 @@ export function Faq() {
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.7, ease }}
         >
-          <Eyebrow>FAQ</Eyebrow>
-          <SectionHeading
-            title="Answers to your questions"
-            subtitle="Clear and helpful answers to all your inquiries."
-          />
+          <Eyebrow>{t("eyebrow")}</Eyebrow>
+          <SectionHeading title={t("title")} subtitle={t("subtitle")} />
         </motion.header>
 
         <motion.div
@@ -140,10 +141,11 @@ export function Faq() {
             variants={reduced ? reducedDivider : dividerLine}
             style={{ transformOrigin: "left" }}
           />
-          {faqItems.map((item, index) => (
+          {FAQ_KEYS.map((key, index) => (
             <FaqAccordionItem
-              key={item.question}
-              item={item}
+              key={key}
+              question={t(`items.${key}.question`)}
+              answer={t(`items.${key}.answer`)}
               open={openIndex === index}
               onToggle={() =>
                 setOpenIndex((current) => (current === index ? -1 : index))

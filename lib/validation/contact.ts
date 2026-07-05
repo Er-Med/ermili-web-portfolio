@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl"
+import { useMemo } from "react"
 import { z } from "zod/v4"
 
 export const contactSchema = z.object({
@@ -17,3 +19,27 @@ export const contactSchema = z.object({
 })
 
 export type ContactFormData = z.infer<typeof contactSchema>
+
+export function useContactSchema() {
+  const t = useTranslations("validation")
+
+  return useMemo(
+    () =>
+      z.object({
+        name: z
+          .string()
+          .min(2, t("nameMin"))
+          .max(100, t("nameMax")),
+        email: z.email(t("emailInvalid")),
+        phone: z
+          .string()
+          .max(30, t("phoneTooLong")),
+        message: z
+          .string()
+          .min(10, t("messageMin"))
+          .max(5000, t("messageMax")),
+        turnstileToken: z.string().min(1, t("turnstile")),
+      }),
+    [t],
+  )
+}

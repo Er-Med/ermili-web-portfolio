@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import Link from "next/link"
+import NextLink from "next/link"
 import {
   motion,
   useMotionValue,
@@ -9,9 +9,8 @@ import {
   useReducedMotion,
 } from "framer-motion"
 
+import { Link } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
-
-/* ——— Types ——— */
 
 type Variant = "primary" | "secondary" | "ghost"
 
@@ -42,8 +41,6 @@ type AsButton = SharedProps & {
 
 export type BrandCtaProps = AsLink | AsButton
 
-/* ——— Spring configs ——— */
-
 const MAGNETIC_SPRING = { stiffness: 150, damping: 15, mass: 0.1 }
 
 const HOVER_TRANSITION = {
@@ -52,8 +49,6 @@ const HOVER_TRANSITION = {
   damping: 25,
   mass: 0.5,
 }
-
-/* ——— Arrow SVG ——— */
 
 function CtaArrow() {
   return (
@@ -75,8 +70,6 @@ function CtaArrow() {
     </svg>
   )
 }
-
-/* ——— Style definitions ——— */
 
 const base = [
   "group/cta relative inline-flex items-center justify-center",
@@ -108,7 +101,9 @@ const variants: Record<Variant, string> = {
   ].join(" "),
 }
 
-/* ——— Component ——— */
+function isExternalHref(href: string): boolean {
+  return href.startsWith("mailto:") || href.startsWith("http") || href.startsWith("tel:")
+}
 
 export function BrandCta(props: BrandCtaProps) {
   const {
@@ -168,13 +163,23 @@ export function BrandCta(props: BrandCtaProps) {
   const isLink = !("as" in props && props.as === "button")
 
   const inner = isLink ? (
-    <Link
-      href={(props as AsLink).href}
-      className={classes}
-      onClick={(props as AsLink).onClick}
-    >
-      {content}
-    </Link>
+    isExternalHref((props as AsLink).href) ? (
+      <NextLink
+        href={(props as AsLink).href}
+        className={classes}
+        onClick={(props as AsLink).onClick}
+      >
+        {content}
+      </NextLink>
+    ) : (
+      <Link
+        href={(props as AsLink).href}
+        className={classes}
+        onClick={(props as AsLink).onClick}
+      >
+        {content}
+      </Link>
+    )
   ) : (
     <button
       type={props.type ?? "button"}

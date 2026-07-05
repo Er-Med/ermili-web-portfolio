@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "defaultTitle": "Ermili Web — Conception & Développement Web",
+    "homeTitle": "Ermili Web — Sites Web Haut de Gamme pour les Marques Modernes",
+    "aboutTitle": "À propos",
+    "contactTitle": "Contact",
+    "projectsTitle": "Projets",
+    "description": "Des sites web haut de gamme pour les marques qui veulent paraître crédibles, modernes et se développer en ligne.",
+    "projectsDescription": "Projets web sélectionnés par Ermili Web — sites corporate, e-commerce et plateformes santé conçus pour les marques ambitieuses."
+  },
+  "nav": {
+    "about": "À propos",
+    "projects": "Projets",
+    "process": "Processus",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "bookCall": "Réserver un appel",
+    "language": "Langue",
+    "home": "Accueil {siteName}"
+  },
+  "hero": {
+    "available": "Disponible",
+    "headingLine1": "Votre Site Devrait",
+    "headingLine2": "Vous Gagner des Clients",
+    "description": "Je m'associe aux entreprises en croissance pour remplacer les sites web obsolètes par des expériences numériques premium qui inspirent confiance et convertissent les visiteurs en clients.",
+    "credibility": "La confiance des startups, cliniques et entreprises en croissance",
+    "scroll": "Défiler",
+    "bookCall": "Réserver un Appel Stratégique",
+    "viewWork": "Voir les Projets"
+  },
+  "meet": {
+    "lineOne": "Rencontrez la",
+    "lineOneEmphasis": "personne",
+    "lineTwo": "derrière le",
+    "lineTwoEmphasis": "design",
+    "greeting": "Bonjour,",
+    "bio": "je m'appelle ermili, spécialiste et développeur de sites web. Je crée des sites web haut de gamme pour les entreprises qui veulent paraître crédibles et se développer en ligne.",
+    "experience": "Avec une expérience en design et développement, je combine expertise technique et sensibilité créative pour construire des expériences numériques qui se démarquent vraiment.",
+    "cta": "Faisons de votre site web quelque chose d'extraordinaire !",
+    "learnMore": "En savoir plus"
+  },
+  "projects": {
+    "eyebrow": "Projets Sélectionnés",
+    "title": "Des sites web conçus pour les marques qui veulent se démarquer.",
+    "seeAll": "Voir tous les projets",
+    "viewProject": "Démo en direct",
+    "portfolioEyebrow": "Portfolio",
+    "portfolioTitle": "Projets"
+  },
+  "process": {
+    "eyebrow": "Processus",
+    "title": "Comment je donne vie à votre projet",
+    "subtitle": "Un processus clair et collaboratif — de la première conversation au lancement final.",
+    "steps": {
+      "discovery": {
+        "title": "Découverte",
+        "description": "J'analyse votre entreprise, votre audience et vos objectifs. Nous définissons ensemble à quoi ressemble le succès avant de placer le moindre pixel."
+      },
+      "strategy": {
+        "title": "Stratégie",
+        "description": "Structure du contenu, parcours utilisateurs et positionnement — planifiés pour que chaque décision de design serve un objectif clair."
+      },
+      "design": {
+        "title": "Design",
+        "description": "Des visuels haute fidélité qui capturent la personnalité de votre marque. Affinés jusqu'à ce que chaque détail soit intentionnel."
+      },
+      "development": {
+        "title": "Développement",
+        "description": "Du code propre et performant. Responsive dès le départ avec des interactions fluides et des temps de chargement rapides."
+      },
+      "launch": {
+        "title": "Lancement",
+        "description": "Contrôle qualité final, déploiement et livraison. Votre site est mis en ligne, peaufiné et prêt pour la production."
+      }
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Réponses à vos questions",
+    "subtitle": "Des réponses claires et utiles à toutes vos interrogations.",
+    "items": {
+      "whatKind": {
+        "question": "Quel type de sites web construisez-vous ?",
+        "answer": "Je conçois et développe des sites web modernes pour les entreprises qui veulent inspirer confiance, attirer plus de clients et se développer en ligne. Que vous ayez besoin d'un site vitrine, d'une page de destination ou d'une application web sur mesure, chaque projet est adapté à votre entreprise."
+      },
+      "howLong": {
+        "question": "Combien de temps dure un projet en général ?",
+        "answer": "Le délai dépend de la complexité du projet. La plupart des sites web professionnels sont réalisés en 2 à 6 semaines, tandis que les solutions personnalisées plus complexes peuvent prendre plus de temps. Vous recevrez un calendrier clair avant le début du développement."
+      },
+      "seo": {
+        "question": "Mon site web sera-t-il optimisé pour le SEO ?",
+        "answer": "Oui. Chaque site web est construit avec les meilleures pratiques SEO, des temps de chargement rapides, un design responsive et un code propre pour améliorer votre visibilité sur les moteurs de recherche et offrir une meilleure expérience utilisateur."
+      },
+      "update": {
+        "question": "Puis-je mettre à jour le site moi-même ?",
+        "answer": "Absolument. Si votre site web inclut un système de gestion de contenu (CMS), vous pourrez modifier les textes, images, articles de blog et autres contenus sans aucune compétence technique."
+      },
+      "afterLaunch": {
+        "question": "Que se passe-t-il après la mise en ligne ?",
+        "answer": "Le lancement de votre site web n'est que le début. Vous recevrez tout ce dont vous avez besoin pour le gérer en toute confiance, et si vous préférez un accompagnement continu, je propose la maintenance, les mises à jour, les améliorations de performance et l'assistance technique à tout moment."
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Prêt à avancer ?",
+    "subtitle": "Si vous envisagez un nouveau site web ou souhaitez des conseils d'expert, je suis là pour vous aider à prendre la bonne décision.",
+    "contactMe": "Me contacter",
+    "bookCall": "Réserver un appel",
+    "linkedin": "LinkedIn",
+    "email": "Email",
+    "form": {
+      "name": "Nom",
+      "namePlaceholder": "Votre nom",
+      "email": "Email",
+      "emailPlaceholder": "vous@email.com",
+      "phone": "Téléphone",
+      "phoneOptional": "(facultatif)",
+      "phonePlaceholder": "+33 6 12 34 56 78",
+      "message": "Message",
+      "messagePlaceholder": "Parlez-moi de votre projet...",
+      "send": "Envoyer le message",
+      "sending": "Envoi en cours…"
+    },
+    "success": "Message envoyé avec succès !",
+    "networkError": "Erreur réseau. Veuillez vérifier votre connexion et réessayer.",
+    "genericError": "Une erreur est survenue."
+  },
+  "validation": {
+    "nameMin": "Le nom doit contenir au moins 2 caractères.",
+    "nameMax": "Le nom doit contenir au maximum 100 caractères.",
+    "emailInvalid": "Veuillez saisir une adresse email valide.",
+    "phoneTooLong": "Le numéro de téléphone est trop long.",
+    "messageMin": "Le message doit contenir au moins 10 caractères.",
+    "messageMax": "Le message doit contenir au maximum 5000 caractères.",
+    "turnstile": "Veuillez compléter la vérification."
+  },
+  "footer": {
+    "tagline": "Conçu avec intention",
+    "copyright": "Ermili.dev",
+    "statement": "Conception de sites web modernes qui aident les entreprises à croître.",
+    "backToTop": "Retour en haut"
+  }
+}

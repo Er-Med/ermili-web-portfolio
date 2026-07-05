@@ -9,7 +9,7 @@ export function CursorDot() {
     const dot = dotRef.current
     if (!dot || !window.matchMedia("(pointer: fine)").matches) return
 
-    document.body.classList.add("cursor-ready")
+    dot.classList.add("opacity-100")
 
     const onMove = (e: MouseEvent) => {
       dot.style.left = `${e.clientX}px`
@@ -19,9 +19,16 @@ export function CursorDot() {
     window.addEventListener("mousemove", onMove, { passive: true })
     return () => {
       window.removeEventListener("mousemove", onMove)
-      document.body.classList.remove("cursor-ready")
+      dot.classList.remove("opacity-100")
     }
   }, [])
 
-  return <div className="cursor-dot" ref={dotRef} id="cursorDot" aria-hidden="true" />
+  return (
+    <div
+      ref={dotRef}
+      id="cursorDot"
+      aria-hidden="true"
+      className="pointer-events-none fixed z-[9999] size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-accent opacity-0 mix-blend-multiply [transition:transform_0.15s_var(--ease-brand),opacity_0.3s]"
+    />
+  )
 }

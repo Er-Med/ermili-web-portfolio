@@ -1,24 +1,25 @@
-"use client"
+"use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion"
+import { useTranslations } from "next-intl";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
-import { ProjectCard } from "@/components/projects/project-card"
-import { Reveal } from "@/components/motion/reveal"
-import { Container } from "@/components/ui/container"
-import { Eyebrow } from "@/components/ui/eyebrow"
-import { SectionHeading } from "@/components/ui/section-heading"
-import { BrandCta } from "@/components/ui/brand-cta"
-import type { Project } from "@/content/projects"
-import { cn } from "@/lib/utils"
+import { ProjectCard } from "@/components/projects/project-card";
+import { Reveal } from "@/components/motion/reveal";
+import { Container } from "@/components/ui/container";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { BrandCta } from "@/components/ui/brand-cta";
+import type { Project } from "@/content/projects";
+import { cn } from "@/lib/utils";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const gridContainer: Variants = {
   hidden: {},
   show: {
     transition: { staggerChildren: 0.15, delayChildren: 0.1 },
   },
-}
+};
 
 const gridItem: Variants = {
   hidden: { opacity: 0, y: 28, scale: 0.96 },
@@ -28,36 +29,37 @@ const gridItem: Variants = {
     scale: 1,
     transition: { duration: 0.9, ease: EASE },
   },
-}
+};
 
 const gridItemReduced: Variants = {
   hidden: { opacity: 1, y: 0, scale: 1 },
   show: { opacity: 1, y: 0, scale: 1 },
-}
+};
 
 type ProjectGridProps = {
-  projects: Project[]
-  title?: string
-  titleTag?: "h1" | "h2"
-  eyebrow?: string
-  showCta?: boolean
-  sectionClassName?: string
-  id?: string
-}
+  projects: Project[];
+  isPortfolioPage?: boolean;
+  showCta?: boolean;
+  sectionClassName?: string;
+  id?: string;
+};
 
 const defaultSectionClass =
-  "border-b border-brand-line py-24 max-sm:py-16 last:border-b-0"
+  "border-b border-brand-line py-24 max-sm:py-16 last:border-b-0";
 
 export function ProjectGrid({
   projects,
-  title = "Projects",
-  titleTag: TitleTag = "h2",
-  eyebrow = "Selected Projects",
+  isPortfolioPage = false,
   showCta = false,
   sectionClassName,
   id = "work",
 }: ProjectGridProps) {
-  const prefersReduced = useReducedMotion()
+  const t = useTranslations("projects");
+  const prefersReduced = useReducedMotion();
+
+  const eyebrow = isPortfolioPage ? t("portfolioEyebrow") : t("eyebrow");
+  const title = isPortfolioPage ? t("portfolioTitle") : t("title");
+  const TitleTag = isPortfolioPage ? "h1" : "h2";
 
   return (
     <section className={cn(defaultSectionClass, sectionClassName)} id={id}>
@@ -91,11 +93,11 @@ export function ProjectGrid({
         {showCta && (
           <Reveal className="mt-12 text-center">
             <BrandCta href="/projects" variant="secondary" arrow>
-              See all projects
+              {t("seeAll")}
             </BrandCta>
           </Reveal>
         )}
       </Container>
     </section>
-  )
+  );
 }

@@ -4,7 +4,6 @@ export const site = {
   description:
     "ermili.dev helps businesses get premium, easy-to-use websites — from first conversation to launch.",
   email: "hello@ermili.dev",
-  calLink: "ermili-mohamed-juo5w8/30min",
   social: {
     linkedin: "https://linkedin.com",
   },

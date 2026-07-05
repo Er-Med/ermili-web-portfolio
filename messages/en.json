@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "defaultTitle": "Ermili Web — Web Design & Development",
+    "homeTitle": "Ermili Web — High-End Websites for Modern Brands",
+    "aboutTitle": "About",
+    "contactTitle": "Contact",
+    "projectsTitle": "Projects",
+    "description": "High-end websites for brands that want to look credible, modern, and grow online.",
+    "projectsDescription": "Selected website projects by Ermili Web — corporate sites, e-commerce, and healthcare platforms built for ambitious brands."
+  },
+  "nav": {
+    "about": "About",
+    "projects": "Projects",
+    "process": "Process",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "bookCall": "Book a call",
+    "language": "Language",
+    "home": "{siteName} home"
+  },
+  "hero": {
+    "available": "Available",
+    "headingLine1": "Your Website Should",
+    "headingLine2": "Win You Clients",
+    "description": "I partner with growing businesses to replace outdated websites with premium digital experiences that build instant credibility and turn visitors into customers.",
+    "credibility": "Trusted by startups, clinics & growing businesses",
+    "scroll": "Scroll",
+    "bookCall": "Book a Strategy Call",
+    "viewWork": "View Work"
+  },
+  "meet": {
+    "lineOne": "Meet the",
+    "lineOneEmphasis": "person",
+    "lineTwo": "behind the",
+    "lineTwoEmphasis": "design",
+    "greeting": "Hey,",
+    "bio": "my name is ermili, website specialist and developer. I create high-end websites for businesses that want to look credible and grow online.",
+    "experience": "With experience across design and development, I combine technical expertise with a strong design sensibility to build digital experiences that truly stand out.",
+    "cta": "Let's make your website something extraordinary!",
+    "learnMore": "Learn more"
+  },
+  "projects": {
+    "eyebrow": "Selected Projects",
+    "title": "Websites crafted for brands that want to stand out.",
+    "seeAll": "See all projects",
+    "viewProject": "Live Demo",
+    "portfolioEyebrow": "Portfolio",
+    "portfolioTitle": "Projects"
+  },
+  "process": {
+    "eyebrow": "Process",
+    "title": "How I bring your project to life",
+    "subtitle": "A clear, collaborative workflow — from first conversation to final launch.",
+    "steps": {
+      "discovery": {
+        "title": "Discovery",
+        "description": "I dig into your business, audience, and goals. We align on what success looks like before a single pixel is placed."
+      },
+      "strategy": {
+        "title": "Strategy",
+        "description": "Content structure, user flows, and positioning — mapped out so every design decision serves a clear purpose."
+      },
+      "design": {
+        "title": "Design",
+        "description": "High-fidelity visuals that capture your brand's personality. Refined until every detail feels intentional."
+      },
+      "development": {
+        "title": "Development",
+        "description": "Clean, performant code. Built responsive from the start with smooth interactions and fast load times."
+      },
+      "launch": {
+        "title": "Launch",
+        "description": "Final QA, deployment, and handoff. Your site goes live polished and production-ready."
+      }
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Answers to your questions",
+    "subtitle": "Clear and helpful answers to all your inquiries.",
+    "items": {
+      "whatKind": {
+        "question": "What kind of websites do you build?",
+        "answer": "I design and develop modern websites for businesses that want to build trust, attract more customers, and grow online. Whether you need a company website, landing page, or custom web application, every project is tailored to your business."
+      },
+      "howLong": {
+        "question": "How long does a project usually take?",
+        "answer": "The timeline depends on the project's complexity. Most business websites are completed within 2–6 weeks, while larger custom solutions may take longer. You'll receive a clear timeline before development begins."
+      },
+      "seo": {
+        "question": "Will my website be optimized for SEO?",
+        "answer": "Yes. Every website is built with SEO best practices, fast loading speeds, responsive design, and clean code to help improve your visibility on search engines and deliver a better user experience."
+      },
+      "update": {
+        "question": "Can I update the website myself?",
+        "answer": "Absolutely. If your website includes a content management system (CMS), you'll be able to edit text, images, blog posts, and other content without needing any technical skills."
+      },
+      "afterLaunch": {
+        "question": "What happens after my website goes live?",
+        "answer": "Launching your website is just the beginning. You'll receive everything you need to manage it confidently, and if you prefer ongoing support, I offer maintenance, updates, performance improvements, and technical assistance whenever you need it."
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Ready to move forward?",
+    "subtitle": "If you're exploring a new website or want expert guidance, I'm here to help you make the right decision.",
+    "contactMe": "Contact me",
+    "bookCall": "Book a call",
+    "linkedin": "LinkedIn",
+    "email": "Email",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@email.com",
+      "phone": "Phone",
+      "phoneOptional": "(optional)",
+      "phonePlaceholder": "+1 (555) 000-0000",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project...",
+      "send": "Send message",
+      "sending": "Sending…"
+    },
+    "success": "Message sent successfully!",
+    "networkError": "Network error. Please check your connection and try again.",
+    "genericError": "Something went wrong."
+  },
+  "validation": {
+    "nameMin": "Name must be at least 2 characters.",
+    "nameMax": "Name must be at most 100 characters.",
+    "emailInvalid": "Please enter a valid email address.",
+    "phoneTooLong": "Phone number is too long.",
+    "messageMin": "Message must be at least 10 characters.",
+    "messageMax": "Message must be at most 5000 characters.",
+    "turnstile": "Please complete the verification."
+  },
+  "footer": {
+    "tagline": "Built with Intent",
+    "copyright": "Ermili.dev",
+    "statement": "Designing modern websites that help businesses grow.",
+    "backToTop": "Back to top"
+  }
+}

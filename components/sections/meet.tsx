@@ -1,53 +1,52 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import Link from "next/link";
-import { useRef } from "react";
+import Image from "next/image"
+import { useRef } from "react"
+import { useTranslations } from "next-intl"
 import {
   motion,
   useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
-} from "framer-motion";
+} from "framer-motion"
 
-import { ScrollSplitHeading } from "@/components/motion/scroll-split-heading";
-import { Container } from "@/components/ui/container";
+import { ScrollSplitHeading } from "@/components/motion/scroll-split-heading"
+import { Container } from "@/components/ui/container"
+import { Link } from "@/i18n/navigation"
 
-const spring = { stiffness: 80, damping: 28, mass: 0.9 };
+const spring = { stiffness: 80, damping: 28, mass: 0.9 }
 
 export function Meet() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const prefersReduced = useReducedMotion();
+  const t = useTranslations("meet")
+  const sectionRef = useRef<HTMLElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const prefersReduced = useReducedMotion()
 
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end 0.65"],
-  });
+  })
 
-  const smoothProgress = useSpring(scrollYProgress, spring);
+  const smoothProgress = useSpring(scrollYProgress, spring)
 
-  // Card: fade-in + translate-up + scale
-  const cardOpacity = useTransform(smoothProgress, [0, 0.45], [0, 1]);
-  const cardY = useTransform(smoothProgress, [0, 0.5], [48, 0]);
-  const cardScale = useTransform(smoothProgress, [0, 0.5], [0.96, 1]);
+  const cardOpacity = useTransform(smoothProgress, [0, 0.45], [0, 1])
+  const cardY = useTransform(smoothProgress, [0, 0.5], [48, 0])
+  const cardScale = useTransform(smoothProgress, [0, 0.5], [0.96, 1])
 
-  // Image: zoom-out reveal + subtle parallax
-  const imgScale = useTransform(smoothProgress, [0.05, 0.6], [1.15, 1]);
-  const imgY = useTransform(smoothProgress, [0, 1], [24, -12]);
+  const imgScale = useTransform(smoothProgress, [0.05, 0.6], [1.15, 1])
+  const imgY = useTransform(smoothProgress, [0, 1], [24, -12])
 
-  // Text: fade-in from right (slightly delayed via progress range)
-  const textOpacity = useTransform(smoothProgress, [0.2, 0.6], [0, 1]);
-  const textX = useTransform(smoothProgress, [0.2, 0.6], [32, 0]);
+  const textOpacity = useTransform(smoothProgress, [0.2, 0.6], [0, 1])
+  const textX = useTransform(smoothProgress, [0.2, 0.6], [32, 0])
 
-  const noMotion = !!prefersReduced;
+  const noMotion = !!prefersReduced
 
   return (
     <section
       ref={sectionRef}
       className="border-b border-brand-line bg-[#f8f8f8] py-24 max-sm:py-16"
-      id="meet"
+      id="about"
     >
       <Container>
         <ScrollSplitHeading
@@ -57,14 +56,18 @@ export function Meet() {
           lineTwoClassName="mt-[0.15em] pe-[4rem] text-right max-sm:text-left"
           lineOne={
             <>
-              Meet the{" "}
-              <em className="font-medium italic text-brand-muted">person</em>
+              {t("lineOne")}{" "}
+              <em className="font-medium italic text-brand-muted">
+                {t("lineOneEmphasis")}
+              </em>
             </>
           }
           lineTwo={
             <>
-              behind the{" "}
-              <em className="font-medium italic text-brand-muted">design</em>
+              {t("lineTwo")}{" "}
+              <em className="font-medium italic text-brand-muted">
+                {t("lineTwoEmphasis")}
+              </em>
             </>
           }
         />
@@ -78,7 +81,6 @@ export function Meet() {
               : { opacity: cardOpacity, y: cardY, scale: cardScale }
           }
         >
-          {/* Image with clip-path reveal + parallax */}
           <figure className="m-0 aspect-[4/5] max-h-[380px] overflow-hidden rounded-2xl">
             <motion.div
               className="h-full w-full"
@@ -101,7 +103,6 @@ export function Meet() {
             </motion.div>
           </figure>
 
-          {/* Text fades in from the right */}
           <motion.div
             className="pr-[clamp(1rem,4vw,3rem)] max-[960px]:pr-0"
             style={
@@ -109,29 +110,26 @@ export function Meet() {
             }
           >
             <p className="mb-4 text-[clamp(1.5rem,3vw,2rem)]">
-              <strong>Hey,</strong>
+              <strong>{t("greeting")}</strong>
             </p>
             <p className="mb-4 max-w-[52ch] text-[1.05rem] leading-[1.65]">
-              my name is ermili, website specialist and developer. I create high-end
-              websites for businesses that want to look credible and grow online.
+              {t("bio")}
             </p>
             <p className="mb-[0.85rem] max-w-[52ch] text-[0.95rem] leading-[1.65] text-brand-faint">
-              With experience across design and development, I combine technical
-              expertise with a strong design sensibility to build digital experiences
-              that truly stand out.
+              {t("experience")}
             </p>
             <p className="mb-[0.85rem] max-w-[52ch] text-[0.95rem] leading-[1.65] text-brand-faint">
-              Let&apos;s make your website something extraordinary!
+              {t("cta")}
             </p>
             <Link
               href="/#contact"
               className="mt-2 inline-block text-[0.95rem] font-medium text-brand-on-dark underline underline-offset-4 transition-colors hover:text-brand-accent"
             >
-              Learn more
+              {t("learnMore")}
             </Link>
           </motion.div>
         </motion.article>
       </Container>
     </section>
-  );
+  )
 }

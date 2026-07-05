@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react"
 
 const DOCK_THRESHOLD = 130
-const DARK_SECTION_SELECTOR = ".section--dark, .featured-card, .meet-card"
+const DARK_SECTION_SELECTOR = ".section--dark, .meet-card"
 
 function getHeaderHeight(varName: string): number {
   const value = getComputedStyle(document.documentElement).getPropertyValue(varName)
@@ -52,14 +52,6 @@ export function useHeaderScroll() {
           onDark = true
         }
       })
-
-      const featured = document.querySelector(".featured")
-      if (featured) {
-        const rect = featured.getBoundingClientRect()
-        if (rect.top < probeY && rect.bottom > probeY) {
-          onDark = true
-        }
-      }
 
       setIsOnDark(onDark)
     }
