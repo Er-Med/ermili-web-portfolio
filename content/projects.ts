@@ -16,29 +16,29 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "shopflow",
-    name: "ShopFlow",
+    slug: "swiftform",
+    name: "SwiftForm",
     year: 2026,
     frameClass: "project-card-frame--1",
     image: "/project1.jpg",
   },
   {
-    slug: "pem-technologies",
-    name: "PEM Technologies",
+    slug: "lanizo",
+    name: "Lanizo",
     year: 2025,
     frameClass: "project-card-frame--2",
     image: "/project2.jpg",
   },
   {
-    slug: "thrivedoc",
-    name: "ThriveDoc",
+    slug: "devmode",
+    name: "DevMode",
     year: 2026,
     frameClass: "project-card-frame--3",
     image: "/project3.jpg",
   },
   {
-    slug: "nova-finance",
-    name: "Nova Finance",
+    slug: "qural",
+    name: "Qural",
     year: 2025,
     frameClass: "project-card-frame--4",
     image: "/project4.jpg",
