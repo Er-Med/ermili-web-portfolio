@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -7,10 +8,27 @@ import {
   useSpring,
   useTransform,
   type MotionValue,
+  type Variants,
 } from "framer-motion";
 import type { RefObject, ReactNode } from "react";
 
+import {
+  SM_MIN_WIDTH_QUERY,
+  useMediaQuery,
+} from "@/hooks/use-media-query";
+
 const springConfig = { stiffness: 85, damping: 26, mass: 0.85 };
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const mobileLineVariants: Variants = {
+  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: EASE, delay },
+  }),
+};
 
 type ScrollSplitHeadingProps = {
   scrollTargetRef: RefObject<HTMLElement | null>;
@@ -33,6 +51,12 @@ export function ScrollSplitHeading({
   travel = 112,
 }: ScrollSplitHeadingProps) {
   const shouldReduceMotion = useReducedMotion();
+  const isDesktopOrTablet = useMediaQuery(SM_MIN_WIDTH_QUERY);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    setIsReady(true);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: scrollTargetRef,
@@ -45,21 +69,39 @@ export function ScrollSplitHeading({
   const xLeft = useSpring(xLeftRaw, springConfig);
   const xRight = useSpring(xRightRaw, springConfig);
 
+  const useScrollAnimation =
+    isReady && isDesktopOrTablet && !shouldReduceMotion;
+  const useMobileAnimation =
+    isReady && !isDesktopOrTablet && !shouldReduceMotion;
+
   return (
     <h2
-      className={[
-        "",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={["max-w-full", className].filter(Boolean).join(" ")}
     >
-      <SplitLine motionX={shouldReduceMotion ? 0 : xLeft} className={lineOneClassName}>
-        {lineOne}
-      </SplitLine>
-      <SplitLine motionX={shouldReduceMotion ? 0 : xRight} className={lineTwoClassName}>
-        {lineTwo}
-      </SplitLine>
+      {useScrollAnimation ? (
+        <DesktopClipStage travel={travel}>
+          <DesktopSplitLine motionX={xLeft} className={lineOneClassName}>
+            {lineOne}
+          </DesktopSplitLine>
+          <DesktopSplitLine motionX={xRight} className={lineTwoClassName}>
+            {lineTwo}
+          </DesktopSplitLine>
+        </DesktopClipStage>
+      ) : useMobileAnimation ? (
+        <>
+          <MobileSplitLine className={lineOneClassName} delay={0}>
+            {lineOne}
+          </MobileSplitLine>
+          <MobileSplitLine className={lineTwoClassName} delay={0.14}>
+            {lineTwo}
+          </MobileSplitLine>
+        </>
+      ) : (
+        <>
+          <StaticLine className={lineOneClassName}>{lineOne}</StaticLine>
+          <StaticLine className={lineTwoClassName}>{lineTwo}</StaticLine>
+        </>
+      )}
     </h2>
   );
 }
@@ -67,10 +109,35 @@ export function ScrollSplitHeading({
 type SplitLineProps = {
   children: ReactNode;
   className?: string;
+};
+
+type DesktopSplitLineProps = SplitLineProps & {
   motionX: number | MotionValue<number>;
 };
 
-function SplitLine({ children, className, motionX }: SplitLineProps) {
+/** Wider clip region so translateX scroll motion is not cut off by the heading box. */
+function DesktopClipStage({
+  children,
+  travel,
+}: {
+  children: ReactNode;
+  travel: number;
+}) {
+  return (
+    <div
+      className="overflow-x-clip"
+      style={{
+        width: `calc(100% + ${travel * 2}px)`,
+        marginInline: -travel,
+        paddingInline: travel,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function DesktopSplitLine({ children, className, motionX }: DesktopSplitLineProps) {
   return (
     <motion.span
       className={["block will-change-transform", className].filter(Boolean).join(" ")}
@@ -78,5 +145,34 @@ function SplitLine({ children, className, motionX }: SplitLineProps) {
     >
       {children}
     </motion.span>
+  );
+}
+
+function MobileSplitLine({
+  children,
+  className,
+  delay,
+}: SplitLineProps & { delay: number }) {
+  return (
+    <motion.span
+      className={["block max-w-full will-change-[opacity,transform,filter]", className]
+        .filter(Boolean)
+        .join(" ")}
+      variants={mobileLineVariants}
+      custom={delay}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.35, margin: "0px 0px -32px 0px" }}
+    >
+      {children}
+    </motion.span>
+  );
+}
+
+function StaticLine({ children, className }: SplitLineProps) {
+  return (
+    <span className={["block max-w-full", className].filter(Boolean).join(" ")}>
+      {children}
+    </span>
   );
 }

@@ -1,46 +1,46 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useRef } from "react"
-import { useTranslations } from "next-intl"
+import Image from "next/image";
+import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import {
   motion,
   useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
-} from "framer-motion"
+} from "framer-motion";
 
-import { ScrollSplitHeading } from "@/components/motion/scroll-split-heading"
-import { Container } from "@/components/ui/container"
-import { Link } from "@/i18n/navigation"
+import { ScrollSplitHeading } from "@/components/motion/scroll-split-heading";
+import { Container } from "@/components/ui/container";
+import { Link } from "@/i18n/navigation";
 
-const spring = { stiffness: 80, damping: 28, mass: 0.9 }
+const spring = { stiffness: 80, damping: 28, mass: 0.9 };
 
 export function Meet() {
-  const t = useTranslations("meet")
-  const sectionRef = useRef<HTMLElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
-  const prefersReduced = useReducedMotion()
+  const t = useTranslations("meet");
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const prefersReduced = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end 0.65"],
-  })
+  });
 
-  const smoothProgress = useSpring(scrollYProgress, spring)
+  const smoothProgress = useSpring(scrollYProgress, spring);
 
-  const cardOpacity = useTransform(smoothProgress, [0, 0.45], [0, 1])
-  const cardY = useTransform(smoothProgress, [0, 0.5], [48, 0])
-  const cardScale = useTransform(smoothProgress, [0, 0.5], [0.96, 1])
+  const cardOpacity = useTransform(smoothProgress, [0, 0.45], [0, 1]);
+  const cardY = useTransform(smoothProgress, [0, 0.5], [48, 0]);
+  const cardScale = useTransform(smoothProgress, [0, 0.5], [0.96, 1]);
 
-  const imgScale = useTransform(smoothProgress, [0.05, 0.6], [1.15, 1])
-  const imgY = useTransform(smoothProgress, [0, 1], [24, -12])
+  const imgScale = useTransform(smoothProgress, [0.05, 0.6], [1.15, 1]);
+  const imgY = useTransform(smoothProgress, [0, 1], [24, -12]);
 
-  const textOpacity = useTransform(smoothProgress, [0.2, 0.6], [0, 1])
-  const textX = useTransform(smoothProgress, [0.2, 0.6], [32, 0])
+  const textOpacity = useTransform(smoothProgress, [0.2, 0.6], [0, 1]);
+  const textX = useTransform(smoothProgress, [0.2, 0.6], [32, 0]);
 
-  const noMotion = !!prefersReduced
+  const noMotion = !!prefersReduced;
 
   return (
     <section
@@ -51,9 +51,9 @@ export function Meet() {
       <Container>
         <ScrollSplitHeading
           scrollTargetRef={sectionRef}
-          className="mb-12 font-sans text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[1.05] tracking-[-0.02em]"
-          lineOneClassName="ps-[4rem]"
-          lineTwoClassName="mt-[0.15em] pe-[4rem] text-right max-sm:text-left"
+          className="mb-12 font-sans text-[clamp(2rem,6vw,4.5rem)] max-sm:text-[clamp(2.75rem,9vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.02em]"
+          lineOneClassName=" sm:ps-[4rem]"
+          lineTwoClassName="mt-[0.15em] pe-[4rem] max-sm:ps-[1rem] max-sm:pe-[0rem]  text-right max-sm:text-left"
           lineOne={
             <>
               {t("lineOne")}{" "}
@@ -88,9 +88,9 @@ export function Meet() {
                 noMotion
                   ? undefined
                   : {
-                      scale: imgScale,
-                      y: imgY,
-                    }
+                    scale: imgScale,
+                    y: imgY,
+                  }
               }
             >
               <Image
@@ -131,5 +131,5 @@ export function Meet() {
         </motion.article>
       </Container>
     </section>
-  )
+  );
 }
