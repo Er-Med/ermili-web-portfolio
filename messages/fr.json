@@ -20,8 +20,8 @@
   },
   "hero": {
     "available": "Disponible",
-    "headingLine1": "Votre Site Devrait",
-    "headingLine2": "Vous Gagner des Clients",
+    "headingLine1": "Votre Site Devrait Vous",
+    "headingLine2": "Faire Gagner des Clients",
     "description": "Je m'associe aux entreprises en croissance pour remplacer les sites web obsolètes par des expériences numériques premium qui inspirent confiance et convertissent les visiteurs en clients.",
     "credibility": "La confiance des startups, cliniques et entreprises en croissance",
     "scroll": "Défiler",
@@ -34,14 +34,14 @@
     "lineTwo": "derrière le",
     "lineTwoEmphasis": "design",
     "greeting": "Bonjour,",
-    "bio": "je m'appelle ermili, spécialiste et développeur de sites web. Je crée des sites web haut de gamme pour les entreprises qui veulent paraître crédibles et se développer en ligne.",
-    "experience": "Avec une expérience en design et développement, je combine expertise technique et sensibilité créative pour construire des expériences numériques qui se démarquent vraiment.",
+    "bio": "Je m'appelle Ermili, spécialiste en développement de sites web. Je crée des sites web haut de gamme pour les entreprises qui veulent paraître crédibles et se développer en ligne.",
+    "experience": "Avec une expérience en design et développement, je combine expertise technique et sensibilité créative pour construire des expériences numériques qui se démarquent.",
     "cta": "Faisons de votre site web quelque chose d'extraordinaire !",
     "learnMore": "En savoir plus"
   },
   "projects": {
     "eyebrow": "Projets Sélectionnés",
-    "title": "Des sites web conçus pour les marques qui veulent se démarquer.",
+    "title": "Des sites web conçus pour des marques qui veulent se démarquer.",
     "seeAll": "Voir tous les projets",
     "viewProject": "Démo en direct",
     "portfolioEyebrow": "Portfolio",
@@ -49,7 +49,7 @@
   },
   "process": {
     "eyebrow": "Processus",
-    "title": "Comment je donne vie à votre projet",
+    "title": "Comment donner vie à votre projet",
     "subtitle": "Un processus clair et collaboratif — de la première conversation au lancement final.",
     "steps": {
       "discovery": {
