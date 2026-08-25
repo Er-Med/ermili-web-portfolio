@@ -1,47 +1,47 @@
-import type { Metadata } from "next"
-import Script from "next/script"
-import { Inter_Tight, JetBrains_Mono } from "next/font/google"
-import { NextIntlClientProvider } from "next-intl"
-import { getTranslations, setRequestLocale } from "next-intl/server"
-import { notFound } from "next/navigation"
-import { Toaster } from "sonner"
+import type { Metadata } from "next";
+import Script from "next/script";
+import { Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { Toaster } from "sonner";
 
-import { CursorDot } from "@/components/layout/cursor-dot"
-import { SiteFooter } from "@/components/layout/site-footer"
-import { SiteHeader } from "@/components/layout/site-header"
-import { LogoTransitionProvider } from "@/components/motion/logo-transition"
-import { LenisProvider } from "@/components/providers/lenis-provider"
-import { routing } from "@/i18n/routing"
-import type { Locale } from "@/i18n/routing"
+import { CursorDot } from "@/components/layout/cursor-dot";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import { LogoTransitionProvider } from "@/components/motion/logo-transition";
+import { LenisProvider } from "@/components/providers/lenis-provider";
+import { routing } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
 
-import "lenis/dist/lenis.css"
-import "../globals.css"
-import "@/styles/ermili.css"
+import "lenis/dist/lenis.css";
+import "../globals.css";
+import "@/styles/ermili.css";
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-inter-tight",
-})
+});
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-jetbrains-mono",
-})
+});
 
 type Props = {
-  children: React.ReactNode
-  params: Promise<{ locale: string }>
-}
+  children: React.ReactNode;
+  params: Promise<{ locale: string; }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "metadata" })
-  const baseUrl = "https://ermili.dev"
-  const canonicalUrl = locale === "en" ? baseUrl : `${baseUrl}/${locale}`
-  const title = t("defaultTitle")
-  const description = t("description")
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
+  const baseUrl = "https://ermiliweb.com";
+  const canonicalUrl = locale === "en" ? baseUrl : `${baseUrl}/${locale}`;
+  const title = t("defaultTitle");
+  const description = t("description");
 
   return {
     metadataBase: new URL(baseUrl),
@@ -70,23 +70,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
     },
-  }
+  };
 }
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }))
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = await params
+  const { locale } = await params;
 
   if (!routing.locales.includes(locale as Locale)) {
-    notFound()
+    notFound();
   }
 
-  setRequestLocale(locale)
+  setRequestLocale(locale);
 
-  const messages = (await import(`../../messages/${locale}.json`)).default
+  const messages = (await import(`../../messages/${locale}.json`)).default;
 
   return (
     <html
@@ -112,5 +112,5 @@ export default async function LocaleLayout({ children, params }: Props) {
         />
       </body>
     </html>
-  )
+  );
 }
