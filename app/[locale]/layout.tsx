@@ -10,6 +10,7 @@ import { CursorDot } from "@/components/layout/cursor-dot";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { LogoTransitionProvider } from "@/components/motion/logo-transition";
+import { GoogleAnalytics } from "@/components/providers/google-analytics";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/i18n/routing";
@@ -105,6 +106,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           </LenisProvider>
           <Toaster position="bottom-right" richColors closeButton />
         </NextIntlClientProvider>
+        <GoogleAnalytics />
         <Script
           src="https://challenges.cloudflare.com/turnstile/v0/api.js"
           strategy="lazyOnload"
