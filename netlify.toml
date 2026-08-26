@@ -1,0 +1,5 @@
+# Next.js embeds server-only env values into `.next` (and Netlify copies
+# them into function bundles). That is expected, not a public leak.
+# Keep scanning the repository source for accidental commits.
+[build.environment]
+  SECRETS_SCAN_OMIT_PATHS = ".next,.netlify"
