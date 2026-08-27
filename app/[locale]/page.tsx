@@ -18,7 +18,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "metadata" })
-  const baseUrl = "https://ermili.dev"
+  const baseUrl = "https://ermiliweb.com"
   const canonicalUrl = locale === "en" ? baseUrl : `${baseUrl}/${locale}`
   const title = t("homeTitle")
   const description = t("description")

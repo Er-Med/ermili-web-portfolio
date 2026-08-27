@@ -12,7 +12,9 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "metadata" })
-  const baseUrl = "https://ermili.dev"
+  const baseUrl = "https://ermiliweb.com"
+  const canonicalUrl =
+    locale === "en" ? `${baseUrl}/projects` : `${baseUrl}/${locale}/projects`
   const title = t("projectsTitle")
   const description = t("projectsDescription")
 
@@ -20,10 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     description,
     alternates: {
-      canonical:
-        locale === "en"
-          ? `${baseUrl}/projects`
-          : `${baseUrl}/${locale}/projects`,
+      canonical: canonicalUrl,
       languages: {
         en: `${baseUrl}/projects`,
         fr: `${baseUrl}/fr/projects`,
@@ -32,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${title} | Ermili Web`,
       description,
+      url: canonicalUrl,
       locale: locale === "fr" ? "fr_FR" : "en_US",
       type: "website",
     },
