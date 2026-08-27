@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     metadataBase: new URL(baseUrl),
     title: {
       default: title,
-      template: "%s — Ermili Web",
+      template: "%s | Ermili Web",
     },
     description,
     alternates: {

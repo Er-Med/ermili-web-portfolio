@@ -30,14 +30,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: `${title} — Ermili Web`,
+      title: `${title} | Ermili Web`,
       description,
       locale: locale === "fr" ? "fr_FR" : "en_US",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} — Ermili Web`,
+      title: `${title} | Ermili Web`,
       description,
     },
   }

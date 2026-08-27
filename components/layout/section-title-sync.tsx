@@ -11,12 +11,12 @@ export function SectionTitleSync() {
       const hash = window.location.hash
 
       if (hash === "#about") {
-        document.title = `${t("aboutTitle")} — Ermili Web`
+        document.title = `${t("aboutTitle")} | Ermili Web`
         return
       }
 
       if (hash === "#contact") {
-        document.title = `${t("contactTitle")} — Ermili Web`
+        document.title = `${t("contactTitle")} | Ermili Web`
         return
       }
 
