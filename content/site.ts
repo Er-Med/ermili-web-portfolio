@@ -5,6 +5,6 @@ export const site = {
     "ermili.dev helps businesses get premium, easy-to-use websites — from first conversation to launch.",
   email: "hello@ermili.dev",
   social: {
-    linkedin: "https://linkedin.com",
+    linkedin: "https://www.linkedin.com/in/ermilimohamed/",
   },
 } as const
