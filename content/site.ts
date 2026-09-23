@@ -3,7 +3,7 @@ export const site = {
   title: "ermili.dev | Premium Websites for Business",
   description:
     "ermili.dev helps businesses get premium, easy-to-use websites — from first conversation to launch.",
-  email: "hello@ermili.dev",
+  email: "hello@ermiliweb.com",
   social: {
     linkedin: "https://www.linkedin.com/in/ermilimohamed/",
   },

@@ -1,5 +1,7 @@
 import nodemailer from "nodemailer"
 
+import { site } from "@/content/site"
+
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: Number(process.env.EMAIL_PORT) || 587,
@@ -75,8 +77,8 @@ export async function sendContactEmail(payload: ContactMailPayload) {
   await transporter.sendMail({
     from: `"Ermili Contact Form" <${process.env.EMAIL_USER}>`,
     replyTo: `"${name}" <${email}>`,
-    to: process.env.EMAIL_TO,
-    subject: `New message from ${name} — ermili.dev`,
+    to: site.email,
+    subject: `New message from ${name} — ermiliweb.com`,
     text,
     html,
   })

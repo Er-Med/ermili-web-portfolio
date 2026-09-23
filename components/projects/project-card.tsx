@@ -52,6 +52,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const t = useTranslations("projects")
   const cardRef = useRef<HTMLDivElement>(null)
   const prefersReduced = useReducedMotion()
+  const overlayLabel = t("viewProject")
 
   const { scrollYProgress } = useScroll({
     target: cardRef,
@@ -105,14 +106,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   "group-hover:translate-y-0 group-hover:opacity-100"
                 )}
               >
-                {t("viewProject")} &rarr;
+                {overlayLabel} &rarr;
               </span>
             </div>
           </motion.div>
         ) : (
           <div
             className={cn(
-              "flex aspect-[16/10] items-center justify-center overflow-hidden rounded-[20px] p-[clamp(1.5rem,4vw,2.5rem)]",
+              "relative flex aspect-[16/10] items-center justify-center overflow-hidden rounded-[20px] p-[clamp(1.5rem,4vw,2.5rem)]",
               frameGradients[project.frameClass]
             )}
           >
@@ -120,6 +121,26 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className="aspect-[16/10] w-[78%] rounded-xl bg-white shadow-[0_24px_48px_rgba(0,0,0,0.12)] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:-translate-y-1.5 group-hover:shadow-[0_32px_56px_rgba(0,0,0,0.16)]"
               aria-hidden="true"
             />
+            {project.href && project.href !== "#" ? (
+              <div
+                className={cn(
+                  "pointer-events-none absolute inset-0 flex items-center justify-center rounded-[20px]",
+                  "bg-black/0 transition-[background-color] duration-[400ms]",
+                  "group-hover:bg-black/15"
+                )}
+                aria-hidden="true"
+              >
+                <span
+                  className={cn(
+                    "text-sm font-medium tracking-wide text-white",
+                    "translate-y-3 opacity-0 transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]",
+                    "group-hover:translate-y-0 group-hover:opacity-100"
+                  )}
+                >
+                  {overlayLabel} &rarr;
+                </span>
+              </div>
+            ) : null}
           </div>
         )}
 

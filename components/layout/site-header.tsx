@@ -154,12 +154,12 @@ function LanguageSwitcher({ compact }: { compact?: boolean; }) {
 function NavLink({
   item,
   isActive,
-  isProjects,
+  isInnerPage,
   onNavigate,
 }: {
   item: NavItem;
   isActive: boolean;
-  isProjects: boolean;
+  isInnerPage: boolean;
   onNavigate: () => void;
 }) {
   const t = useTranslations("nav");
@@ -167,7 +167,7 @@ function NavLink({
   const href =
     item.isPage
       ? item.href
-      : isProjects
+      : isInnerPage
         ? item.href
         : item.href.replace("/#", "#");
 
@@ -181,7 +181,7 @@ function NavLink({
           : "text-white/60 hover:text-white/90",
       )}
       aria-current={
-        item.isPage && isProjects ? "page" : isActive ? "true" : undefined
+        item.isPage && isActive ? "page" : isActive ? "true" : undefined
       }
       onClick={onNavigate}
     >
@@ -212,13 +212,13 @@ function NavLink({
 function MobileNavLink({
   item,
   isActive,
-  isProjects,
+  isInnerPage,
   onNavigate,
   variants,
 }: {
   item: NavItem;
   isActive: boolean;
-  isProjects: boolean;
+  isInnerPage: boolean;
   onNavigate: () => void;
   variants: typeof mobileStaggerItem | typeof mobileStaggerItemReduced;
 }) {
@@ -226,7 +226,7 @@ function MobileNavLink({
   const href =
     item.isPage
       ? item.href
-      : isProjects
+      : isInnerPage
         ? item.href
         : item.href.replace("/#", "#");
 
@@ -408,6 +408,7 @@ export function SiteHeader() {
 
   const { isHeroLogoActive } = useLogoTransition();
   const isProjects = pathname === "/projects";
+  const isInnerPage = pathname !== "/";
   const itemVariants = shouldReduceMotion
     ? mobileStaggerItemReduced
     : mobileStaggerItem;
@@ -420,7 +421,7 @@ export function SiteHeader() {
 
   const isLinkActive = (item: NavItem) => {
     if (item.isPage && isProjects) return true;
-    if (!isProjects && item.sectionId && activeSection === item.sectionId)
+    if (!isInnerPage && item.sectionId && activeSection === item.sectionId)
       return true;
     return false;
   };
@@ -495,7 +496,7 @@ export function SiteHeader() {
                 key={item.labelKey}
                 item={item}
                 isActive={isLinkActive(item)}
-                isProjects={isProjects}
+                isInnerPage={isInnerPage}
                 onNavigate={closeMobile}
               />
             ))}
@@ -560,7 +561,7 @@ export function SiteHeader() {
                   key={item.labelKey}
                   item={item}
                   isActive={isLinkActive(item)}
-                  isProjects={isProjects}
+                  isInnerPage={isInnerPage}
                   onNavigate={closeMobile}
                   variants={itemVariants}
                 />
