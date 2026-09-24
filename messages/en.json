@@ -14,7 +14,7 @@
     "process": "Process",
     "faq": "FAQ",
     "contact": "Contact",
-    "bookCall": "Book a call",
+    "bookCall": "Book a free intro call",
     "language": "Language",
     "home": "{siteName} home"
   },
@@ -106,7 +106,7 @@
     "title": "Ready to move forward?",
     "subtitle": "If you're exploring a new website or want expert guidance, I'm here to help you make the right decision.",
     "contactMe": "Contact me",
-    "bookCall": "Book a call",
+    "bookCall": "Book a free intro call",
     "linkedin": "LinkedIn",
     "email": "Email",
     "form": {
@@ -116,7 +116,7 @@
       "emailPlaceholder": "you@email.com",
       "phone": "Phone",
       "phoneOptional": "(optional)",
-      "phonePlaceholder": "+1 (555) 000-0000",
+      "phonePlaceholder": "+212 6 12 34 56 78",
       "message": "Message",
       "messagePlaceholder": "Tell me about your project...",
       "send": "Send message",
@@ -137,7 +137,7 @@
   },
   "footer": {
     "tagline": "Built with Intent",
-    "copyright": "ErmiliWeb",
+    "copyright": "Ermili Web",
     "statement": "Designing modern websites that help businesses grow.",
     "backToTop": "Back to top"
   }

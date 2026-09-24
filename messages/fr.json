@@ -14,7 +14,7 @@
     "process": "Processus",
     "faq": "FAQ",
     "contact": "Contact",
-    "bookCall": "Réserver un appel",
+    "bookCall": "Réserver un appel d'intro gratuit",
     "language": "Langue",
     "home": "Accueil {siteName}"
   },
@@ -106,7 +106,7 @@
     "title": "Prêt à avancer ?",
     "subtitle": "Si vous envisagez un nouveau site web ou souhaitez des conseils d'expert, je suis là pour vous aider à prendre la bonne décision.",
     "contactMe": "Me contacter",
-    "bookCall": "Réserver un appel",
+    "bookCall": "Réserver un appel d'intro gratuit",
     "linkedin": "LinkedIn",
     "email": "Email",
     "form": {
@@ -116,7 +116,7 @@
       "emailPlaceholder": "vous@email.com",
       "phone": "Téléphone",
       "phoneOptional": "(facultatif)",
-      "phonePlaceholder": "+33 6 12 34 56 78",
+      "phonePlaceholder": "+212 6 12 34 56 78",
       "message": "Message",
       "messagePlaceholder": "Parlez-moi de votre projet...",
       "send": "Envoyer le message",
@@ -137,7 +137,7 @@
   },
   "footer": {
     "tagline": "Conçu avec intention",
-    "copyright": "ErmiliWeb",
+    "copyright": "Ermili Web",
     "statement": "Conception de sites web modernes qui aident les entreprises à croître.",
     "backToTop": "Retour en haut"
   }
